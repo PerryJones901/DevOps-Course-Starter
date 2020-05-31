@@ -1,17 +1,65 @@
 {% extends "layout.html" %}
-{% block title %}To-Do App{% endblock %}
+{% block title %}The Perfect Productivity Platform{% endblock %}
 
 {% block content %}
   <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
+    <h1 class="display-4"">The Perfect Productivity Platform</h1>
+    <p class="lead">Not just another to-do app.</p>
   </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <h2>Items</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
+  <div class="row" >
+    <div class="col-md-3">
+      <h2>New To-Do</h2>
+      <form action="/add" method="POST" id="add">
+        <label for="title">Task Name:</label>
+        <input type="text" id="title" name="title"><br><br>
+        <button type="submit" class="btn-primary btn-sm" value="Submit">Add</button>
+      </form>
+    </div>
+    <div class="col-md-9">
+      <h2>To-Do List</h2>
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-secondary" disabled>Sort By</button>
+        <form action="/sorted/id" class="form-inline" method="GET">
+          <button type="submit" class="btn btn-secondary">ID</button>
+        </form>
+        <form action="/sorted/title" class="form-inline" method="GET">
+          <button type="submit" class="btn btn-secondary">Title A-Z</button>
+        </form>
+        <form action="/sorted/status" class="form-inline" method="GET">
+          <button type="submit" class="btn btn-secondary">Status</button>
+        </form>
+      </div>
+      <ul>
+        {% for item in items %}
+        <li>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6">
+                ID{{ item.id }}: {{ item.title }}. Status: {{ item.status }}.
+              </div>
+              <div class="btn-group col-md-6" role="group">
+                <form action="/toggle/{{item.id}}" class="form-inline" method="POST">
+                  {% if item.status == 'Not Started' %}
+                    <button type="submit" class="btn btn-success btn-sm" role="button">
+                      Mark as Complete
+                    </button>
+                  {% else %}
+                    <button type="submit" class="btn btn-info btn-sm" role="button">
+                      Reactivate
+                    </button>
+                  {% endif %}
+                </form>
+                <form action="/delete/{{item.id}}" class="form-inline" method="POST" role="form">
+                  <button type="submit" class="btn btn-danger btn-sm" role="button">
+                    Delete
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </li>
+        {% endfor %}
       </ul>
     </div>
   </div>
