@@ -75,5 +75,20 @@ def delete_item(id):
     Args:
         item: The ID of the item to delete.
     """
-    session['items'] = list(filter(lambda item: item['id'] != id, get_items()))
+    items = get_items()
+    session['items'] = [item for item in items if item['id'] != id]
+    return
+
+def sort_by(field):
+    """
+    Sorts list by field. If field is 'status', do in reverse (so checked are at the bottom).
+
+    Args:
+        field: The field to sort by.
+    """
+    if field == 'status':
+        reverse = True
+    else:
+        reverse = False
+    session['items'] = sorted(get_items(), key=lambda item: item[field], reverse=reverse)
     return

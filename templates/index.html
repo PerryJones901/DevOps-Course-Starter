@@ -12,7 +12,7 @@
       <h2>New To-Do</h2>
       <form action="/add" method="POST" id="add">
         <label for="title">Task Name:</label>
-        <input type="text" id="title" name="title"><br><br>
+        <input type="text" id="title" name="title" required><br><br>
         <button type="submit" class="btn-primary btn-sm" value="Submit">Add</button>
       </form>
     </div>
@@ -20,15 +20,9 @@
       <h2>To-Do List</h2>
       <div class="btn-group" role="group">
         <button type="button" class="btn btn-secondary" disabled>Sort By</button>
-        <form action="/sorted/id" class="form-inline" method="GET">
-          <button type="submit" class="btn btn-secondary">ID</button>
-        </form>
-        <form action="/sorted/title" class="form-inline" method="GET">
-          <button type="submit" class="btn btn-secondary">Title A-Z</button>
-        </form>
-        <form action="/sorted/status" class="form-inline" method="GET">
-          <button type="submit" class="btn btn-secondary">Status</button>
-        </form>
+        <a href="/sorted/id" class="btn btn-secondary" type="submit">ID</a>
+        <a href="/sorted/title" class="btn btn-secondary" type="submit">Title A-Z</a>
+        <a href="/sorted/status" class="btn btn-secondary" type="submit">Status</a>
       </div>
       <ul>
         {% for item in items %}

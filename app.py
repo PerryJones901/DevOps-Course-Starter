@@ -9,24 +9,20 @@ def toggle_string(status_string):
         return 'Completed'
     return 'Not Started'
 
-@app.route('/')
+@app.route('/index')
 def index():
     items = session.get_items()
     return render_template('index.html', items=items)
 
 @app.route('/sorted/<field>')
 def sorted_by(field):
-    if field == 'status':
-        reverse = True
-    else:
-        reverse = False
-    sorted_items = sorted(session.get_items(), key=lambda item: item[field], reverse=reverse)
-    return render_template('index.html', items=sorted_items)
+    session.sort_by(field)
+    return redirect(url_for('index'))
 
 @app.route('/add', methods=['POST'])
 def add_something():
     session.add_item(request.form.get('title'))
-    return index()
+    return redirect(url_for('index'))
 
 @app.route('/toggle/<int:id>', methods=['POST'])
 def update_something(id):
@@ -34,12 +30,12 @@ def update_something(id):
     if item is not None:
         item['status'] = toggle_string(item['status'])
         session.save_item(item)
-    return index()
+    return redirect(url_for('index'))
 
 @app.route('/delete/<int:id>', methods=['POST'])
 def delete_item(id):
     session.delete_item(id)
-    return index()
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run()
