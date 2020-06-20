@@ -67,3 +67,28 @@ def save_item(item):
     session['items'] = updated_items
 
     return item
+
+def delete_item(id):
+    """
+    Deletes an existing item in the session. If no existing item matches the ID of the specified item, nothing is deleted.
+
+    Args:
+        item: The ID of the item to delete.
+    """
+    items = get_items()
+    session['items'] = [item for item in items if item['id'] != id]
+    return
+
+def sort_by(field):
+    """
+    Sorts list by field. If field is 'status', do in reverse (so checked are at the bottom).
+
+    Args:
+        field: The field to sort by.
+    """
+    if field == 'status':
+        reverse = True
+    else:
+        reverse = False
+    session['items'] = sorted(get_items(), key=lambda item: item[field], reverse=reverse)
+    return
