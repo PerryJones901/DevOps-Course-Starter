@@ -25,8 +25,10 @@ def get_card(id) -> Card:
 def get_lists() -> dict:
     return api.get(build_board_url("/lists"))
 
-def add_card(name='ToDo List item') -> Card:
-    params = {"name": name, "idList": env.TODO_LIST_ID}
+def add_card(title, due) -> Card:
+    params = {"name": title, "idList": env.TODO_LIST_ID}
+    if due is not '':
+        params = {**params, "due": due}
     return api.post(build_card_url(""), params=params)
 
 def mark_card_todo(id) -> Card:

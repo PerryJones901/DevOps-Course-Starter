@@ -12,7 +12,9 @@
       <h2>New To-Do</h2>
       <form action="/add" method="POST" id="add">
         <label for="title">Task Name:</label>
-        <input type="text" id="title" name="title" required><br><br>
+        <input type="text" id="title" name="title" required><br>
+        <label for="due">Due Date:</label><br>
+        <input type="date" id="due" name="due"><br><br>
         <button type="submit" class="btn-primary btn-sm" value="Submit">Add</button>
       </form>
     </div>
@@ -24,12 +26,25 @@
         <a href="/sorted/title" class="btn btn-secondary" type="submit">Title A-Z</a>
         <a href="/sorted/status" class="btn btn-secondary" type="submit">Status</a>
       </div>
+        <div class="container">
+          <div class="row" id="headings">
+            <div class="col-md-4">
+              Tasks:
+            </div>
+            <div class="col-md-4">
+              Due:
+            </div>
+            <div class="col-md-4">
+              Options:
+            </div>
+          </div>
+        </div>
       <ul>
         {% for item in items %}
         <li>
           <div class="container">
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-4">
                 ID{{ item.idShort }}: {{ item.title }}.
                 Status:
                 {% if item.is_complete == true %}
@@ -38,7 +53,14 @@
                   Not Started
                 {% endif %}
               </div>
-              <div class="btn-group col-md-6" role="group">
+              <div class="col-md-4">
+                {% if item.due_date != None %}
+                  {{ item.due_date }}
+                {% else %}
+                  ----
+                {% endif %}
+              </div>
+              <div class="btn-group col-md-4" role="group">
                 <form action="/toggle/{{item.id}}" class="form-inline" method="POST">
                   {% if item.is_complete == true %}
                     <button type="submit" class="btn btn-info btn-sm" role="button">

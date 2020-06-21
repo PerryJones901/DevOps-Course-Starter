@@ -20,7 +20,10 @@ def sorted_by(field):
 
 @app.route('/add', methods=['POST'])
 def add_something():
-    trello.add_card(request.form.get('title'))
+    title = request.form.get('title')
+    due = request.form.get('due')
+    print(due)
+    trello.add_card(title, due)
     return redirect(url_for('index'))
 
 @app.route('/toggle/<id>', methods=['POST'])
