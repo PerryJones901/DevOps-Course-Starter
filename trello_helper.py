@@ -9,8 +9,9 @@ KEY = os.environ.get('TRELLO_API_KEY')
 TOKEN = os.environ.get('TRELLO_API_TOKEN')
 
 class Card:
-    def __init__(self, id, title, is_complete):
+    def __init__(self, id, idShort, title, is_complete):
         self.id = id
+        self.idShort = idShort
         self.title = title
         self.is_complete = is_complete
 
@@ -19,9 +20,10 @@ def is_done_list(listId):
 
 def json_to_card(json):
     id = json['id']
+    idShort = json['idShort']
     title = json['name']
     is_complete = is_done_list(json['idList'])
-    return Card(id=id, title=title, is_complete=is_complete)
+    return Card(id, idShort, title, is_complete)
 
 def params_with_auth(params):
     return {"key": KEY, "token": TOKEN, **params}
