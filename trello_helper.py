@@ -26,46 +26,50 @@ def json_to_card(json):
 def params_with_auth(params):
     return {"key": KEY, "token": TOKEN, **params}
 
-def build_url(uri):
+def build_board_url(uri):
     return f"{BASE_URL}/boards/{BOARD_ID}{uri}"
 
-def get_from_board(uri, params={}):
-    return requests.get(build_url(uri), params=params_with_auth(params)).json()
+def build_card_url(uri):
+    return f"{BASE_URL}/cards{uri}"
 
-def post_to_board(uri, params={}):
-    return requests.post(build_url(uri), params=params_with_auth(params)).json()
+def get(url, params={}):
+    return requests.get(url, params=params_with_auth(params)).json()
 
-def put_to_board(uri, params={}):
-    return requests.put(build_url(uri), params=params_with_auth(params)).json()
+def post(url, params={}):
+    return requests.post(url, params=params_with_auth(params)).json()
 
-def delete_from_board(uri, params={}):
-    return requests.delete(build_url(uri), params=params_with_auth(params)).json()
+def put(url, params={}):
+    print(url)
+    return requests.put(url, params=params_with_auth(params)).json()
+
+def delete(url, params={}):
+    return requests.delete(url, params=params_with_auth(params)).json()
 
 def get_board():
-    return get_from_board("")
+    return get(build_board_url(""))
 
 def get_cards():
-    response_json = get_from_board("/cards")
+    response_json = get(build_board_url("/cards"))
     return [json_to_card(item) for item in response_json]
 
 def get_card(id):
-    response_json = get_from_board(f"/cards/{id}")
+    response_json = get(build_board_url(f"/cards/{id}"))
     return json_to_card(response_json)
 
 def get_lists():
-    return get_from_board("/lists")
+    return get(build_board_url("/lists"))
 
 def add_card(name='ToDo List item'):
-    params = {"name": name, "listId": TODO_LIST_ID}
-    return post_to_board("/cards", params=params)
+    params = {"name": name, "idList": TODO_LIST_ID}
+    return post(build_card_url(""), params=params)
 
 def mark_card_todo(id):
-    params = {"listId": TODO_LIST_ID}
-    return put_to_board(f"/cards/{id}", params=params)
+    params = {"idList": TODO_LIST_ID}
+    return put(build_card_url(f"/{id}"), params=params)
 
 def mark_card_complete(id):
-    params = {"listId": DONE_LIST_ID}
-    return put_to_board(f"/cards/{id}", params=params)
+    params = {"idList": DONE_LIST_ID}
+    return put(build_card_url(f"/{id}"), params=params)
 
 def delete_card(id):
-    return delete_from_board(f"/cards/{id}")
+    return delete(build_card_url(f"/{id}"))
