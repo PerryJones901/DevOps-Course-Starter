@@ -1,27 +1,21 @@
-from enum import Enum
 from flask import Flask, render_template, request, redirect, url_for
 import session_items as session
+import sorter as sorter
 import trello_helper as trello
 
 app = Flask(__name__)
 app.config.from_object('flask_config.Config')
 
-class Field(Enum):
-    id = 1
-    title = 2
-    status = 3
-
-sort_by_field = Field.id
-
 @app.route('/index')
 def index():
-    items = trello.get_cards()
-    items = sorted(items, key=lambda item: item.id)
+    cards = trello.get_cards()
+    sort_by_field = session.get_sort_by_field()
+    items = sorter.sort_cards(cards, sort_by_field)
     return render_template('index.html', items=items)
 
 @app.route('/sorted/<field>')
 def sorted_by(field):
-    sort_by_field = Field[field]
+    session.change_sort_by_field(field)
     return redirect(url_for('index'))
 
 @app.route('/add', methods=['POST'])
