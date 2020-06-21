@@ -15,23 +15,23 @@ class Card:
         self.title = title
         self.is_complete = is_complete
 
-def is_done_list(listId):
+def is_done_list(listId) -> bool:
     return listId == DONE_LIST_ID
 
-def json_to_card(json):
+def json_to_card(json) -> Card:
     id = json['id']
     idShort = json['idShort']
     title = json['name']
     is_complete = is_done_list(json['idList'])
     return Card(id, idShort, title, is_complete)
 
-def params_with_auth(params):
+def params_with_auth(params) -> dict:
     return {"key": KEY, "token": TOKEN, **params}
 
-def build_board_url(uri):
+def build_board_url(uri) -> str:
     return f"{BASE_URL}/boards/{BOARD_ID}{uri}"
 
-def build_card_url(uri):
+def build_card_url(uri) -> str:
     return f"{BASE_URL}/cards{uri}"
 
 def get(url, params={}):
@@ -54,24 +54,24 @@ def get_cards():
     response_json = get(build_board_url("/cards"))
     return [json_to_card(item) for item in response_json]
 
-def get_card(id):
+def get_card(id) -> Card:
     response_json = get(build_board_url(f"/cards/{id}"))
     return json_to_card(response_json)
 
 def get_lists():
     return get(build_board_url("/lists"))
 
-def add_card(name='ToDo List item'):
+def add_card(name='ToDo List item') -> Card:
     params = {"name": name, "idList": TODO_LIST_ID}
     return post(build_card_url(""), params=params)
 
-def mark_card_todo(id):
+def mark_card_todo(id) -> Card:
     params = {"idList": TODO_LIST_ID}
     return put(build_card_url(f"/{id}"), params=params)
 
-def mark_card_complete(id):
+def mark_card_complete(id) -> Card:
     params = {"idList": DONE_LIST_ID}
     return put(build_card_url(f"/{id}"), params=params)
 
-def delete_card(id):
+def delete_card(id) -> Card:
     return delete(build_card_url(f"/{id}"))
