@@ -13,16 +13,15 @@ class Card:
     def is_done_list(id):
         return id == env.DONE_LIST_ID
 
-    @staticmethod
-    def json_to_card(json):
+    @classmethod
+    def json_to_card(cls, json, is_complete):
         id = json['id']
         idShort = json['idShort']
         title = json['name']
-        is_complete = Card.is_done_list(json['idList'])
 
         if json['due'] is None:
             due_date = None
         else:
             due_date = datetime.strptime(json['due'], '%Y-%m-%dT%H:%M:%S.%fZ').strftime('%a %d %b %Y')
 
-        return Card(id, idShort, title, due_date, is_complete)
+        return cls(id, idShort, title, due_date, is_complete)
