@@ -1,40 +1,43 @@
 from flask import Flask, render_template, request, redirect, url_for
 import session_items as session
+import sorter as sorter
+import trello_helper as trello
 
 app = Flask(__name__)
 app.config.from_object('flask_config.Config')
 
-def toggle_string(status_string):
-    if status_string == 'Not Started':
-        return 'Completed'
-    return 'Not Started'
-
-@app.route('/index')
+@app.route('/')
 def index():
-    items = session.get_items()
+    cards = trello.get_cards()
+    sort_by_field = session.get_sort_by_field()
+    items = sorter.sort_cards(cards, sort_by_field)
     return render_template('index.html', items=items)
 
 @app.route('/sorted/<field>')
 def sorted_by(field):
-    session.sort_by(field)
+    session.change_sort_by_field(field)
     return redirect(url_for('index'))
 
 @app.route('/add', methods=['POST'])
 def add_something():
-    session.add_item(request.form.get('title'))
+    title = request.form.get('title')
+    due = request.form.get('due')
+    trello.add_card(title, due)
     return redirect(url_for('index'))
 
-@app.route('/toggle/<int:id>', methods=['POST'])
+@app.route('/toggle/<id>', methods=['POST'])
 def update_something(id):
-    item = session.get_item(id)
+    item = trello.get_card(id)
     if item is not None:
-        item['status'] = toggle_string(item['status'])
-        session.save_item(item)
+        if item.is_complete:
+            trello.mark_card_todo(id)
+        else:
+            trello.mark_card_complete(id)
     return redirect(url_for('index'))
 
-@app.route('/delete/<int:id>', methods=['POST'])
+@app.route('/delete/<id>', methods=['POST'])
 def delete_item(id):
-    session.delete_item(id)
+    trello.delete_card(id)
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
