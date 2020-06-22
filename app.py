@@ -6,7 +6,7 @@ import trello_helper as trello
 app = Flask(__name__)
 app.config.from_object('flask_config.Config')
 
-@app.route('/index')
+@app.route('/')
 def index():
     cards = trello.get_cards()
     sort_by_field = session.get_sort_by_field()
@@ -22,7 +22,6 @@ def sorted_by(field):
 def add_something():
     title = request.form.get('title')
     due = request.form.get('due')
-    print(due)
     trello.add_card(title, due)
     return redirect(url_for('index'))
 
