@@ -20,21 +20,17 @@ def sorted_by(field):
     session.change_sort_by_field(field)
     return redirect(url_for('index'))
 
-@app.route('/add', methods=['POST'])
-def add_something():
+@app.route('/list/<list_id>/add', methods=['POST'])
+def add_card_to_list():
     title = request.form.get('title')
+    list_id = request.form.get('list_id')
     due = request.form.get('due')
-    trello.add_card(title, due)
+    trello.add_card(title, list_id, due)
     return redirect(url_for('index'))
 
-@app.route('/toggle/<id>', methods=['POST'])
-def update_something(id):
-    item = trello.get_card(id)
-    if item is not None:
-        if item.is_complete:
-            trello.mark_card_todo(id)
-        else:
-            trello.mark_card_complete(id)
+@app.route('/card/<card_id>/list/<list_id>', methods=['POST'])
+def move_card_to_list(card_id, list_id):
+    trello.move_card_to_list(card_id, list_id)
     return redirect(url_for('index'))
 
 @app.route('/delete/<id>', methods=['POST'])
