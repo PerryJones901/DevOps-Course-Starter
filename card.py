@@ -9,10 +9,6 @@ class Card:
         self.due_date = due_date
         self.is_complete = is_complete
 
-    @staticmethod
-    def is_done_list(id):
-        return id == env.DONE_LIST_ID
-
     @classmethod
     def json_to_card(cls, json, is_complete):
         id = json['id']
