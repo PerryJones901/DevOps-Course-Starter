@@ -35,7 +35,6 @@ def get_lists() -> List[CardList]:
 
 def get_list(name) -> CardList:
     lists = get_lists()
-    print([card_list.id for card_list in lists])
     return next(card_list for card_list in lists if card_list.name == name)
 
 def add_card(title, due) -> Card:
@@ -47,13 +46,11 @@ def add_card(title, due) -> Card:
 
 def mark_card_todo(id) -> Card:
     todo_list_id = get_list('To Do').id
-    print(todo_list_id)
     params = {"idList": todo_list_id}
     return api.put(build_card_url(f"/{id}"), params=params)
 
 def mark_card_complete(id) -> Card:
     done_list_id = get_list('Done').id
-    print(done_list_id)
     params = {"idList": done_list_id}
     return api.put(build_card_url(f"/{id}"), params=params)
 
