@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 import session_items as session
 import sorter as sorter
 import trello_helper as trello
+from view_model import ViewModel
 
 app = Flask(__name__)
 app.config.from_object('flask_config.Config')
@@ -11,7 +12,8 @@ def index():
     cards = trello.get_cards()
     sort_by_field = session.get_sort_by_field()
     items = sorter.sort_cards(cards, sort_by_field)
-    return render_template('index.html', items=items)
+    item_view_model = ViewModel(items)
+    return render_template('index.html', view_model=item_view_model)
 
 @app.route('/sorted/<field>')
 def sorted_by(field):
