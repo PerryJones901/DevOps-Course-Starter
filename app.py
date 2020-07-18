@@ -12,7 +12,8 @@ def index():
     cards = trello.get_cards()
     sort_by_field = session.get_sort_by_field()
     items = sorter.sort_cards(cards, sort_by_field)
-    item_view_model = ViewModel(items)
+    lists = trello.get_lists()
+    item_view_model = ViewModel(items, lists)
     return render_template('index.html', view_model=item_view_model)
 
 @app.route('/sorted/<field>')
@@ -20,7 +21,7 @@ def sorted_by(field):
     session.change_sort_by_field(field)
     return redirect(url_for('index'))
 
-@app.route('/list/<list_id>/add', methods=['POST'])
+@app.route('/add', methods=['POST'])
 def add_card_to_list():
     title = request.form.get('title')
     list_id = request.form.get('list_id')
