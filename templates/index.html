@@ -40,47 +40,46 @@
           </div>
         </div>
       <ul>
-        {% for item in view_model.items %}
-        <li>
-          <div class="container">
-            <div class="row">
-              <div class="col-md-4">
-                ID{{ item.idShort }}: {{ item.title }}.
-                Status:
-                {% if item.is_complete == true %}
-                  Complete
-                {% else %}
-                  Not Started
-                {% endif %}
-              </div>
-              <div class="col-md-4">
-                {% if item.due_date != None %}
-                  {{ item.due_date }}
-                {% else %}
-                  ----
-                {% endif %}
-              </div>
-              <div class="btn-group col-md-4" role="group">
-                <form action="/toggle/{{item.id}}" class="form-inline" method="POST">
-                  {% if item.is_complete == true %}
-                    <button type="submit" class="btn btn-info btn-sm" role="button">
-                      Reactivate
-                    </button>
+        {% for card_list in view_model.lists %}
+          <h5>
+            {{card_list.name}}
+          </h5>
+          {% for item in card_list.cards %}
+          <li>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-4">
+                  ID{{ item.idShort }}: {{ item.title }}.
+                </div>
+                <div class="col-md-4">
+                  {% if item.due_date != None %}
+                    {{ item.due_date }}
                   {% else %}
-                    <button type="submit" class="btn btn-success btn-sm" role="button">
-                      Mark as Complete
-                    </button>
+                    ----
                   {% endif %}
-                </form>
-                <form action="/delete/{{item.id}}" class="form-inline" method="POST" role="form">
-                  <button type="submit" class="btn btn-danger btn-sm" role="button">
-                    Delete
-                  </button>
-                </form>
+                </div>
+                <div class="btn-group btn-group-toggle col-md-4" data-toggle="buttons" aria-label="Change List of Item">
+                  <!-- <form action="/toggle/{{item.id}}" class="form-inline" method="POST">
+                    {% if item.is_complete == true %}
+                      <button type="submit" class="btn btn-info btn-sm" role="button">
+                        Reactivate
+                      </button>
+                    {% else %}
+                      <button type="submit" class="btn btn-success btn-sm" role="button">
+                        Mark as Complete
+                      </button>
+                    {% endif %}
+                  </form> -->
+                  <form action="/delete/{{item.id}}" class="form-inline" method="POST" role="form">
+                    <button type="submit" class="btn btn-danger btn-sm" role="button">
+                      Delete
+                    </button>
+                  </form>
+                </div>
               </div>
             </div>
-          </div>
-        </li>
+          </li>
+          {% endfor %}
         {% endfor %}
       </ul>
     </div>
