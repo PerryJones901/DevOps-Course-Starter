@@ -2,7 +2,7 @@ import env_vars as env
 from datetime import datetime
 
 class Card:
-    def __init__(self, id, idShort, title, due_date, list_id):
+    def __init__(self, id: int, idShort: int, title: str, due_date: datetime, list_id: int):
         self.id = id
         self.idShort = idShort
         self.title = title

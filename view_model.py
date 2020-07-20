@@ -1,8 +1,10 @@
 from card import Card
 from card_list import CardList
+from card_list_view_model import CardListViewModel
+from typing import List
 
 class ViewModel:
-    def __init__(self, items, lists):
+    def __init__(self, items: List[Card], lists: List[CardList]):
         lists = [CardListViewModel(card_list) for card_list in lists]
         lists_by_id = {card_list_vm.id:card_list_vm for card_list_vm in lists}
         for card in items:
@@ -10,26 +12,5 @@ class ViewModel:
         self._lists = lists
 
     @property
-    def lists(self):
+    def lists(self) -> List[CardListViewModel]:
         return self._lists
-
-class CardListViewModel:
-    def __init__(self, card_list):
-        self._id = card_list.id
-        self._name = card_list.name
-        self._cards = []
-
-    @property
-    def id(self):
-        return self._id
-
-    @property
-    def name(self):
-        return self._name
-
-    @property
-    def cards(self):
-        return self._cards
-
-    def add_card(self, card):
-        self.cards.append(card)
