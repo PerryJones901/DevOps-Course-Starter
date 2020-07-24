@@ -4,7 +4,7 @@ def sort_lambda(field):
     return {
         'id' : lambda item: item.idShort,
         'title' : lambda item: item.title,
-        'status' : lambda item: item.is_complete
+        'List' : lambda item: item.list_id
     }.get(field, lambda item: item.idShort)
 
 def sort_cards(cards, field):
