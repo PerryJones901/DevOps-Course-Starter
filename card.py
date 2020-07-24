@@ -1,24 +1,28 @@
 import env_vars as env
-from datetime import datetime
+from datetime import date, datetime
 
 class Card:
-    def __init__(self, id: int, idShort: int, title: str, due_date: datetime, list_id: int):
+    def __init__(self, id: str, idShort: str, title: str, list_id: str, due_date: date, last_modified: date):
         self.id = id
         self.idShort = idShort
         self.title = title
-        self.due_date = due_date
         self.list_id = list_id
+        self.due_date = due_date
+        self.last_modified = last_modified
 
     @classmethod
     def json_to_card(cls, json):
-        id          = json['id']
-        idShort     = json['idShort']
-        title       = json['name']
-        list_id     = json['idList']
+        id              = json['id']
+        idShort         = json['idShort']
+        title           = json['name']
+        list_id         = json['idList']
+        due_date        = cls._getOrNoneDate(json, 'due')
+        last_modified   = cls._getOrNoneDate(json, 'dateLastActivity')
 
-        if json['due'] is None:
-            due_date = None
-        else:
-            due_date = datetime.strptime(json['due'], '%Y-%m-%dT%H:%M:%S.%fZ').strftime('%a %d %b %Y')
+        return cls(id, idShort, title, list_id, due_date, last_modified)
 
-        return cls(id, idShort, title, due_date, list_id)
+    @staticmethod
+    def _getOrNoneDate(json, key):
+        if json[key] is None:
+            return None
+        return datetime.strptime(json[key], '%Y-%m-%dT%H:%M:%S.%fZ').date()

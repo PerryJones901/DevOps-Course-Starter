@@ -1,4 +1,4 @@
-from card import Card
+from card_view_model import CardViewModel
 from typing import List
 
 class CardListViewModel:
@@ -16,8 +16,8 @@ class CardListViewModel:
         return self._name
 
     @property
-    def cards(self) -> List[Card]:
+    def cards(self) -> List[CardViewModel]:
         return self._cards
 
-    def add_card(self, card):
+    def add_card(self, card: CardViewModel):
         self.cards.append(card)

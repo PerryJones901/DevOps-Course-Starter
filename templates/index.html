@@ -31,8 +31,11 @@
             <div class="col-md-4">
               Tasks:
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
               Due:
+            </div>
+            <div class="col-md-2">
+              Last Modified:
             </div>
             <div class="col-md-4">
               Options:
@@ -51,9 +54,16 @@
                 <div class="col-md-4">
                   ID{{ item.idShort }}: {{ item.title }}.
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                   {% if item.due_date != None %}
                     {{ item.due_date }}
+                  {% else %}
+                    ----
+                  {% endif %}
+                </div>
+                <div class="col-md-2">
+                  {% if item.last_modified != None %}
+                    {{ item.last_modified }}
                   {% else %}
                     ----
                   {% endif %}
@@ -70,6 +80,17 @@
                       </button>
                     {% endif %}
                   </form> -->
+                  <form action="'/card/{{item.id}}'" class="form-inline" method="POST" role="form">
+                    <label for="card_lists">List:</label>
+                    <select name="card_lists" id="list_to_move_to">
+                      {% for card_list in view_model.lists %}
+                      <option value="{{card_list.name}}">{{card_list.name}}</option>
+                      {% endfor %}
+                    </select>
+                    <button type="submit" class="btn btn-info btn-sm" role="button">
+                      Update
+                    </button>
+                  </form>
                   <form action="/delete/{{item.id}}" class="form-inline" method="POST" role="form">
                     <button type="submit" class="btn btn-danger btn-sm" role="button">
                       Delete

@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for
 import session_items as session
 import sorter as sorter
@@ -13,7 +14,7 @@ def index():
     sort_by_field = session.get_sort_by_field()
     items = sorter.sort_cards(cards, sort_by_field)
     lists = trello.get_lists()
-    item_view_model = ViewModel(items, lists)
+    item_view_model = ViewModel(items, lists, True, datetime.now().date())
     return render_template('index.html', view_model=item_view_model)
 
 @app.route('/sorted/<field>')
