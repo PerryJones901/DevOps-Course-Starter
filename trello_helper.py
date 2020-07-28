@@ -39,7 +39,7 @@ def add_card(title, list_id, due) -> dict:
 
 def move_card_to_list(card_id, list_id) -> dict:
     params = {"idList": list_id}
-    return api.put(build_card_url(f"/{id}"), params=params)
+    return api.put(build_card_url(f"/{card_id}"), params=params)
 
 def delete_card(id):
     return api.delete(build_card_url(f"/{id}"))
