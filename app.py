@@ -25,19 +25,21 @@ def sorted_by(field):
 @app.route('/add', methods=['POST'])
 def add_card_to_list():
     title = request.form.get('title')
-    list_id = request.form.get('list_id')
+    list_name = request.form.get('card_list')
     due = request.form.get('due')
-    trello.add_card(title, list_id, due)
+    card_list = trello.get_list(list_name)
+    trello.add_card(title, card_list.id, due)
     return redirect(url_for('index'))
 
-@app.route('/card/<card_id>/list/<list_id>', methods=['POST'])
-def move_card_to_list(card_id, list_id):
+@app.route('/card/<card_id>', methods=['POST'])
+def move_card_to_list(card_id):
+    list_id = request.form.get('card_list')
     trello.move_card_to_list(card_id, list_id)
     return redirect(url_for('index'))
 
-@app.route('/delete/<id>', methods=['POST'])
-def delete_item(id):
-    trello.delete_card(id)
+@app.route('/delete/<card_id>', methods=['POST'])
+def delete_item(card_id):
+    trello.delete_card(card_id)
     return redirect(url_for('index'))
 
 if __name__ == '__main__':

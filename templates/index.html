@@ -15,6 +15,12 @@
         <input type="text" id="title" name="title" required><br>
         <label for="due">Due Date:</label><br>
         <input type="date" id="due" name="due"><br><br>
+        <label for="card_list">Add To:</label><br>
+        <select name="card_list" id="card_list">
+          {% for card_list in view_model.lists %}
+          <option value="{{card_list.name}}">{{card_list.name}}</option>
+          {% endfor %}
+        </select>
         <button type="submit" class="btn-primary btn-sm" value="Submit">Add</button>
       </form>
     </div>
@@ -68,35 +74,20 @@
                     ----
                   {% endif %}
                 </div>
-                <div class="btn-group btn-group-toggle col-md-4" data-toggle="buttons" aria-label="Change List of Item">
-                  <!-- <form action="/toggle/{{item.id}}" class="form-inline" method="POST">
-                    {% if item.is_complete == true %}
-                      <button type="submit" class="btn btn-info btn-sm" role="button">
-                        Reactivate
-                      </button>
-                    {% else %}
-                      <button type="submit" class="btn btn-success btn-sm" role="button">
-                        Mark as Complete
-                      </button>
-                    {% endif %}
-                  </form> -->
-                  <form action="'/card/{{item.id}}'" class="form-inline" method="POST" role="form">
-                    <label for="card_lists">List:</label>
-                    <select name="card_lists" id="list_to_move_to">
-                      {% for card_list in view_model.lists %}
-                      <option value="{{card_list.name}}">{{card_list.name}}</option>
-                      {% endfor %}
-                    </select>
-                    <button type="submit" class="btn btn-info btn-sm" role="button">
-                      Update
-                    </button>
-                  </form>
-                  <form action="/delete/{{item.id}}" class="form-inline" method="POST" role="form">
-                    <button type="submit" class="btn btn-danger btn-sm" role="button">
-                      Delete
-                    </button>
-                  </form>
-                </div>
+                <form action="/card/{{item.id}}" class="form-inline" method="POST">
+                  <label for="card_list">List:</label>
+                  <select name="card_list">
+                    {% for card_list in view_model.lists %}
+                    <option value="{{card_list.id}}">{{card_list.name}}</option>
+                    {% endfor %}
+                  </select>
+                  <button type="submit" class="btn btn-info btn-sm" value="Submit">Update</button>
+                </form>
+                <form action="/delete/{{item.id}}" class="form-inline" method="POST">
+                  <button type="submit" class="btn btn-danger btn-sm" value="Submit">
+                    Delete
+                  </button>
+                </form>
               </div>
             </div>
           </li>
