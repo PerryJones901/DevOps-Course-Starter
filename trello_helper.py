@@ -31,13 +31,13 @@ def get_list(name) -> CardList:
     lists = get_lists()
     return next(card_list for card_list in lists if card_list.name == name)
 
-def add_card(title, list_id, due) -> dict:
+def add_card(title, list_id, due):
     params = {"name": title, "idList": list_id}
     if due != '':
         params = {**params, "due": due}
     return api.post(build_card_url(""), params=params)
 
-def move_card_to_list(card_id, list_id) -> dict:
+def move_card_to_list(card_id, list_id):
     params = {"idList": list_id}
     return api.put(build_card_url(f"/{card_id}"), params=params)
 
