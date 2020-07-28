@@ -15,11 +15,6 @@ class ViewModel:
         lists = [CardListViewModel(card_list) for card_list in lists]
         lists_by_id = {card_list_vm.id:card_list_vm for card_list_vm in lists}
         for card in items:
-            pprint(vars(card))
-            print(card.list_id)
-            print(lists_by_id[card.list_id])
-            print(card)
-            print(CardViewModel(card))
             lists_by_id[card.list_id].add_card(CardViewModel(card))
         self._lists = lists
         self._show_all_done_items = show_all_done_items
