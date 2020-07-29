@@ -43,3 +43,12 @@ def move_card_to_list(card_id, list_id):
 
 def delete_card(id):
     return api.delete(build_card_url(f"/{id}"))
+
+def add_board() -> str:
+    url = f"{env.BASE_URL}/boards"
+    params = {"name": "Selenium Test Board"}
+    return api.post(url, params).json()['id']
+
+def delete_board(id):
+    url = f"{env.BASE_URL}/boards/{id}"
+    return api.delete(url)
