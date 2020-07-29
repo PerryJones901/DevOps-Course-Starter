@@ -42,7 +42,7 @@ class ViewModel:
 
     @property
     def done_list_items_view(self) -> List[CardViewModel]:
-        if(self.show_all_done_items or self.done_list.cards.len() < DONE_LIST_CARD_LIMIT):
+        if(self.show_all_done_items or len(self.done_list.cards) < DONE_LIST_CARD_LIMIT):
             return self.done_list.cards
         return self.recent_done_items
 
