@@ -32,24 +32,25 @@
         <a href="/sorted/title" class="btn btn-secondary" type="submit">Title A-Z</a>
         <a href="/sorted/status" class="btn btn-secondary" type="submit">Status</a>
       </div>
-        <div class="container">
-          <div class="row" id="headings">
-            <div class="col-md-4">
-              Tasks:
-            </div>
-            <div class="col-md-2">
-              Due:
-            </div>
-            <div class="col-md-2">
-              Last Modified:
-            </div>
-            <div class="col-md-4">
-              Options:
-            </div>
+      <a href="/show_all" class="btn btn-secondary" type="submit">Show All Complete</a>
+      <div class="container">
+        <div class="row" id="headings">
+          <div class="col-md-4">
+            Tasks:
+          </div>
+          <div class="col-md-2">
+            Due:
+          </div>
+          <div class="col-md-2">
+            Last Modified:
+          </div>
+          <div class="col-md-4">
+            Options:
           </div>
         </div>
+      </div>
       <ul>
-        {% for card_list in view_model.lists %}
+        {% for card_list in view_model.lists_view %}
           <h5>
             {{card_list.name}}
           </h5>

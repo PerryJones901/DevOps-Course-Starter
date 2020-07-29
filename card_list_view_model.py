@@ -19,5 +19,8 @@ class CardListViewModel:
     def cards(self) -> List[CardViewModel]:
         return self._cards
 
+    def add_cards(self, cards: List[CardViewModel]):
+        self._cards = self._cards + cards
+
     def add_card(self, card: CardViewModel):
         self.cards.append(card)

@@ -66,3 +66,12 @@ class ViewModel:
     def _cards_in_done_modified_before_today(self, before_today: bool) -> List[CardViewModel]:
         done_list = self.done_list
         return [item for item in done_list.cards if (item.last_modified < self.today) == before_today]
+
+    @property
+    def lists_view(self) -> List[CardListViewModel]:
+        card_lists = self.card_lists_excl_done
+        done_list = CardList(self.done_list.id, self.done_list.name)
+        done_list_view = CardListViewModel(done_list)
+        done_list_view.add_cards(self.done_list_items_view)
+        card_lists.append(done_list_view)
+        return card_lists

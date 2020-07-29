@@ -14,12 +14,18 @@ def index():
     sort_by_field = session.get_sort_by_field()
     items = sorter.sort_cards(cards, sort_by_field)
     lists = trello.get_lists()
-    item_view_model = ViewModel(items, lists, True, datetime.now().date())
+    show_all = session.get_show_all_completed_tasks()
+    item_view_model = ViewModel(items, lists, show_all, datetime.now().date())
     return render_template('index.html', view_model=item_view_model)
 
 @app.route('/sorted/<field>')
 def sorted_by(field):
     session.change_sort_by_field(field)
+    return redirect(url_for('index'))
+
+@app.route('/show_all')
+def show_all_completed_tasks():
+    session.toggle_show_all_completed_tasks()
     return redirect(url_for('index'))
 
 @app.route('/add', methods=['POST'])
