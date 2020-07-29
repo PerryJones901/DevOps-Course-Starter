@@ -1,5 +1,6 @@
-from card_view_model import CardViewModel
 from typing import List
+
+from .card_view_model import CardViewModel
 
 class CardListViewModel:
     def __init__(self, card_list):

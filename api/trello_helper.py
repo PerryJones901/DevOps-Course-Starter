@@ -1,9 +1,9 @@
-import api_helper as api
+import api.api_helper as api
 import env_vars as env
 import requests
 import os
-from card import Card
-from card_list import CardList
+from models.card import Card
+from models.card_list import CardList
 from typing import List
 
 def build_board_url(uri) -> str:

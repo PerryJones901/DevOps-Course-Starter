@@ -1,13 +1,15 @@
 from datetime import datetime
-from flask import Flask, render_template, request, redirect, url_for
-import session_items as session
-import sorter as sorter
-import trello_helper as trello
-from view_model import ViewModel
+
+from flask import Flask, redirect, render_template, request, url_for
+
+import api.session_items as session
+import api.sorter as sorter
+import api.trello_helper as trello
+from models.view_model import ViewModel
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object('flask_config.Config')
+    app.config.from_object('api.flask_config.Config')
 
     @app.route('/')
     def index():

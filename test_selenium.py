@@ -1,9 +1,11 @@
 import os
 from threading import Thread
+
 import pytest
-import trello_helper as trello
-import app
 from selenium import webdriver
+
+import api.trello_helper as trello
+import app
 
 @pytest.fixture(scope="module")
 def driver():

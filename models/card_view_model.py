@@ -1,5 +1,6 @@
-from card import Card
 from datetime import datetime
+
+from .card import Card
 
 class CardViewModel:
     def __init__(self, card: Card):

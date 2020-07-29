@@ -1,11 +1,10 @@
-from card import Card
-from card_view_model import CardViewModel
-from card_list import CardList
-from card_list_view_model import CardListViewModel
 from datetime import date
 from typing import List
 
-from pprint import pprint
+from .card import Card
+from .card_list import CardList
+from .card_list_view_model import CardListViewModel
+from .card_view_model import CardViewModel
 
 DONE_LIST_NAME = 'Done'
 DONE_LIST_CARD_LIMIT = 5

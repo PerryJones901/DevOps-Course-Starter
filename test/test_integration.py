@@ -8,10 +8,11 @@ from dotenv import find_dotenv, load_dotenv
 import app
 import env_vars as env
 import test_constants as const
-from card import Card
-from card_list import CardList
-from mock_response import MockResponse
-from view_model import ViewModel
+from models.card import Card
+from models.card_list import CardList
+from models.view_model import ViewModel
+
+from .helpers.mock_response import MockResponse
 
 @pytest.fixture
 def client():

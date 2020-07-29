@@ -1,8 +1,10 @@
-import pytest
-from card import Card
-from card_list import CardList
 from datetime import datetime, timedelta
-from view_model import ViewModel
+
+import pytest
+
+from models.card import Card
+from models.card_list import CardList
+from models.view_model import ViewModel
 
 LISTS = [
     CardList(101, "Todo"),
