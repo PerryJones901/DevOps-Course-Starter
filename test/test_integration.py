@@ -1,4 +1,5 @@
 import os
+import test.test_constants as const
 from datetime import datetime, timedelta
 from unittest import mock
 
@@ -7,7 +8,6 @@ from dotenv import find_dotenv, load_dotenv
 
 import app
 import env_vars as env
-import test_constants as const
 from models.card import Card
 from models.card_list import CardList
 from models.view_model import ViewModel
