@@ -29,3 +29,7 @@ You should see output similar to the following:
  * Debugger PIN: 226-556-590
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
+### Running Tests
+
+You will need to download [geckodriver v0.27.0](https://github.com/mozilla/geckodriver/releases/tag/v0.27.0), and place the geckodriver.exe file at the root directory.
