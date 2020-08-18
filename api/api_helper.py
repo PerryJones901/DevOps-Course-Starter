@@ -9,10 +9,10 @@ def get(url, params={}) -> dict:
     return requests.get(url, params=params_with_auth(params)).json()
 
 def post(url, params={}) -> dict:
-    return requests.post(url, params=params_with_auth(params)).json()
+    return requests.post(url, params=params_with_auth(params))
 
 def put(url, params={}) -> dict:
-    return requests.put(url, params=params_with_auth(params)).json()
+    return requests.put(url, params=params_with_auth(params))
 
 def delete(url, params={}) -> dict:
-    return requests.delete(url, params=params_with_auth(params)).json()
+    return requests.delete(url, params=params_with_auth(params))

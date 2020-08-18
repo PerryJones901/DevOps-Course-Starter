@@ -15,6 +15,12 @@
         <input type="text" id="title" name="title" required><br>
         <label for="due">Due Date:</label><br>
         <input type="date" id="due" name="due"><br><br>
+        <label for="card_list">Add To:</label><br>
+        <select name="card_list" id="card_list">
+          {% for card_list in view_model.lists %}
+          <option value="{{card_list.name}}">{{card_list.name}}</option>
+          {% endfor %}
+        </select>
         <button type="submit" class="btn-primary btn-sm" value="Submit">Add</button>
       </form>
     </div>
@@ -24,63 +30,68 @@
         <button type="button" class="btn btn-secondary" disabled>Sort By</button>
         <a href="/sorted/id" class="btn btn-secondary" type="submit">ID</a>
         <a href="/sorted/title" class="btn btn-secondary" type="submit">Title A-Z</a>
-        <a href="/sorted/status" class="btn btn-secondary" type="submit">Status</a>
       </div>
-        <div class="container">
-          <div class="row" id="headings">
-            <div class="col-md-4">
-              Tasks:
-            </div>
-            <div class="col-md-4">
-              Due:
-            </div>
-            <div class="col-md-4">
-              Options:
-            </div>
+      <a href="/show_all" class="btn btn-secondary" type="submit">Show All Complete</a>
+      <div class="container">
+        <div class="row" id="headings">
+          <div class="col-md-4">
+            Tasks:
+          </div>
+          <div class="col-md-2">
+            Due:
+          </div>
+          <div class="col-md-2">
+            Last Modified:
+          </div>
+          <div class="col-md-4">
+            Options:
           </div>
         </div>
+      </div>
       <ul>
-        {% for item in items %}
-        <li>
-          <div class="container">
-            <div class="row">
-              <div class="col-md-4">
-                ID{{ item.idShort }}: {{ item.title }}.
-                Status:
-                {% if item.is_complete == true %}
-                  Complete
-                {% else %}
-                  Not Started
-                {% endif %}
-              </div>
-              <div class="col-md-4">
-                {% if item.due_date != None %}
-                  {{ item.due_date }}
-                {% else %}
-                  ----
-                {% endif %}
-              </div>
-              <div class="btn-group col-md-4" role="group">
-                <form action="/toggle/{{item.id}}" class="form-inline" method="POST">
-                  {% if item.is_complete == true %}
-                    <button type="submit" class="btn btn-info btn-sm" role="button">
-                      Reactivate
-                    </button>
+        {% for card_list in view_model.lists_view %}
+          <h5>
+            {{card_list.name}}
+          </h5>
+          {% for item in card_list.cards %}
+          <li>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-4">
+                  ID{{ item.idShort }}: {{ item.title }}.
+                </div>
+                <div class="col-md-2">
+                  {% if item.due_date != None %}
+                    {{ item.due_date }}
                   {% else %}
-                    <button type="submit" class="btn btn-success btn-sm" role="button">
-                      Mark as Complete
-                    </button>
+                    ----
                   {% endif %}
+                </div>
+                <div class="col-md-2">
+                  {% if item.last_modified != None %}
+                    {{ item.last_modified }}
+                  {% else %}
+                    ----
+                  {% endif %}
+                </div>
+                <form action="/card/{{item.id}}" class="form-inline" method="POST">
+                  <label for="card_list">List:</label>
+                  <select name="card_list">
+                    {% for card_list in view_model.lists %}
+                    <option value="{{card_list.id}}">{{card_list.name}}</option>
+                    {% endfor %}
+                  </select>
+                  <button type="submit" class="btn btn-info btn-sm" value="Submit">Update</button>
                 </form>
-                <form action="/delete/{{item.id}}" class="form-inline" method="POST" role="form">
-                  <button type="submit" class="btn btn-danger btn-sm" role="button">
+                <form action="/delete/{{item.id}}" class="form-inline" method="POST">
+                  <button type="submit" class="btn btn-danger btn-sm" value="Submit">
                     Delete
                   </button>
                 </form>
               </div>
             </div>
-          </div>
-        </li>
+          </li>
+          {% endfor %}
         {% endfor %}
       </ul>
     </div>
