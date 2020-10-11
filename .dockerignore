@@ -1,0 +1,23 @@
+# Environment
+/env
+.env
+.env.template
+
+# Git
+/.git
+
+# Pycache
+./__pycache__
+
+# Setup
+setup.sh
+
+# Testing
+/.pytest_cache
+/tests
+/tests_e2e
+pytest.ini
+
+# Vagrant
+Vagrantfile
+/.vagrant
