@@ -118,3 +118,12 @@ env/
 ### Gecko Driver files ###
 geckodriver.log
 geckodriver.exe
+
+## Vagrant files ##
+.vagrant/
+
+## Poetry files ##
+poetry.lock
+
+## Gunicorn files ##
+gunicorn.log
