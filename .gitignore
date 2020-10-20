@@ -122,8 +122,5 @@ geckodriver.exe
 ## Vagrant files ##
 .vagrant/
 
-## Poetry files ##
-poetry.lock
-
 ## Gunicorn files ##
 gunicorn.log
