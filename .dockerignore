@@ -1,0 +1,28 @@
+# Environment
+/env
+.env
+.env.template
+
+# Git
+/.git
+
+# Pycache
+/__pycache__
+
+# README
+README.md
+
+# Testing
+/.pytest_cache
+/tests
+/tests_e2e
+geckodriver.exe
+geckodriver.log
+pytest.ini
+
+# Vagrant
+Vagrantfile
+/.vagrant
+
+# VS Code
+/.vscode
