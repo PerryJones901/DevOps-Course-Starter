@@ -12,13 +12,6 @@
 # README
 README.md
 
-# Requirements
-requirements-frozen.txt
-requirements.txt
-
-# Setup
-setup.sh
-
 # Testing
 /.pytest_cache
 /tests
