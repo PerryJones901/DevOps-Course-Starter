@@ -48,6 +48,12 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 
 ### Test Environment Variables
 Create a **.env.test** in the /tests directory with the same field names as the **.env** file, but with appropriate amendments.
+### Run with Docker (Using Pytest)
+```
+docker build --target test --tag my-test-image .
+docker run --env-file tests/.env.test my-test-image tests
+docker run --env-file tests/.env.test my-test-image tests_e2e
+```
 
 ### Download Geckodriver (for End-to-End tests)
 You will need to download [geckodriver v0.27.0](https://github.com/mozilla/geckodriver/releases/tag/v0.27.0), and place the geckodriver.exe file at the root directory.
