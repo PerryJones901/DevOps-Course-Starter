@@ -1,7 +1,5 @@
 from datetime import date, datetime
 
-import env_vars as env
-
 class Card:
     def __init__(self, id: str, idShort: str, title: str, list_id: str, due_date: date, last_modified: date):
         self.id = id

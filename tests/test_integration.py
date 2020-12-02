@@ -3,11 +3,11 @@ import tests.test_constants as const
 from datetime import datetime, timedelta
 from unittest import mock
 
+import flask
 import pytest
 from dotenv import find_dotenv, load_dotenv
 
 import app
-import env_vars as env
 from models.card import Card
 from models.card_list import CardList
 from models.view_model import ViewModel
@@ -19,7 +19,6 @@ def client():
     # Use our test integration config instead of the 'real' version
     file_path = find_dotenv('.env.test')
     load_dotenv(file_path, override=True)
-
     # Create the new app.
     test_app = app.create_app()
 
@@ -28,16 +27,18 @@ def client():
         yield client
 
 def params_url_string(params):
-    params = {"key": env.KEY, "token": env.TOKEN, **params}
+    config = flask.current_app.config
+    params = {"key": config.KEY, "token": config.TOKEN, **params}
     params_url_suffix = '?'
     for (key, value) in params:
         params_url_suffix = params_url_suffix + f'{key}={value}'
     return params_url_suffix
 
 def mock_get_requests(*args, **kwargs):
-    if args[0] == f'https://api.trello.com/1/boards/{env.BOARD_ID}/cards':
+    config = flask.current_app.config
+    if args[0] == f'https://api.trello.com/1/boards/{config["BOARD_ID"]}/cards':
         return MockResponse(const.CARD_ARR, 200)
-    elif args[0] == f'https://api.trello.com/1/boards/{env.BOARD_ID}/lists':
+    elif args[0] == f'https://api.trello.com/1/boards/{config["BOARD_ID"]}/lists':
         return MockResponse(const.LIST_ARR, 200)
 
     return MockResponse(None, 404)

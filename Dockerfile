@@ -15,7 +15,6 @@ RUN poetry install
 
 FROM base AS production
 # COPY across Config
-COPY env_vars.py env_vars.py
 COPY gunicorn.conf.py gunicorn.conf.py
 
 # COPY across app code

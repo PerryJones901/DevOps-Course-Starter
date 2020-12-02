@@ -124,3 +124,6 @@ geckodriver.exe
 
 ## Gunicorn files ##
 gunicorn.log
+
+## VS Code ##
+.vscode/

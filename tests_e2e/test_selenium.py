@@ -4,7 +4,8 @@ from threading import Thread
 import pytest
 from selenium import webdriver
 
-import api.trello_helper as trello
+from api.trello_config import TrelloConfig
+from api.trello_helper import TrelloHelper
 import app
 
 @pytest.fixture(scope="module")
@@ -15,7 +16,9 @@ def driver():
 @pytest.fixture(scope='module')
 def test_app():
     # Create the new board & update the board id environment variable
-    board_id = trello.add_board()
+    config = TrelloConfig()
+    trello_helper = TrelloHelper(config)
+    board_id = trello_helper.add_board()
     os.environ['TRELLO_BOARD_ID'] = board_id
     
     # construct the new application
@@ -29,7 +32,7 @@ def test_app():
 
     # Tear Down
     thread.join(1)
-    trello.delete_board(board_id)
+    trello_helper.delete_board(board_id)
 
 def test_task_journey(driver, test_app):
     driver.get('http://localhost:5000/')
