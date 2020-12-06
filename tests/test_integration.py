@@ -3,9 +3,10 @@ import tests.test_constants as const
 from datetime import datetime, timedelta
 from unittest import mock
 
+from bs4 import BeautifulSoup
+from dotenv import find_dotenv, load_dotenv
 import flask
 import pytest
-from dotenv import find_dotenv, load_dotenv
 
 import app
 from models.card import Card
@@ -21,6 +22,7 @@ def client():
     load_dotenv(file_path, override=True)
     # Create the new app.
     test_app = app.create_app()
+    test_app.testing = True
 
     # Use the app to create a test_client that can be used in our tests.
     with test_app.test_client() as client:
@@ -47,3 +49,11 @@ def mock_get_requests(*args, **kwargs):
 def test_index_page(mock_get_requests, client):
     response = client.get('/')
     assert response.status_code == 200
+
+@mock.patch('requests.get', side_effect=mock_get_requests)
+def test_index_page_contains_card_names(mock_get_requests, client):
+    response_data = client.get('/').data
+    soup = BeautifulSoup(response_data, 'html.parser')
+    all_task_id_and_name_elements = soup.find_all(class_="task-id-and-name")
+    for i in range(3):
+        assert (const.CARD_ARR[i]["name"] in all_task_id_and_name_elements[i].string)
