@@ -1,7 +1,4 @@
-env:
-- FLASK_SKIP_DOTENV=True FLASK_APP=app FLASK_ENV=development SECRET_KEY=secret-key TRELLO_API_KEY=fake-api-key TRELLO_API_TOKEN=fake-api-token TRELLO_BASE_URL=https://api.trello.com/1 TRELLO_BOARD_ID=fake-board-id
-
 script:
 - echo "hello world"
 - docker build --target test --tag my-test-image .
-- docker run my-test-image tests
+- docker run --env-file tests/.env.test my-test-image tests
