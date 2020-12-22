@@ -52,7 +52,7 @@ Create a **.env.test** in the /tests directory with the same field names as the 
 ```
 docker build --target test --tag my-test-image .
 docker run --env-file tests/.env.test my-test-image tests
-docker run --env-file tests/.env.test my-test-image tests_e2e
+docker run --env-file .env my-test-image tests_e2e
 ```
 
 ### Download Geckodriver (for End-to-End tests)

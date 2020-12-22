@@ -33,9 +33,6 @@ ENTRYPOINT poetry run flask run --host 0.0.0.0
 
 
 FROM base AS test
-# COPY across Config
-COPY env_vars.py env_vars.py
-
 # COPY across app code
 COPY app.py app.py
 COPY api api
