@@ -11,7 +11,7 @@ class TrelloHelper:
         self.api = ApiHelper(trello_config)
         
     def build_board_url(self,uri) -> str:
-        return f"{self.config.BASE_URL}/boards/{self.config.BOARD_ID}{uri}"
+        return f"{self.config.BASE_URL}/boards/{self.config.BOARD_ID}/{uri}"
 
     def build_card_url(self,uri) -> str:
         return f"{self.config.BASE_URL}/cards{uri}"
@@ -20,15 +20,15 @@ class TrelloHelper:
         return self.api.get(self.build_board_url(""))
 
     def get_cards(self) -> List[Card]:
-        response_json = self.api.get(self.build_board_url("/cards"))
+        response_json = self.api.get(self.build_board_url("cards"))
         return [Card.json_to_card(item) for item in response_json]
 
     def get_card(self, id) -> Card:
-        response_json = self.api.get(self.build_board_url(f"/cards/{id}"))
+        response_json = self.api.get(self.build_board_url(f"cards/{id}"))
         return Card.json_to_card(response_json)
 
     def get_lists(self) -> List[CardList]:
-        response_json = self.api.get(self.build_board_url("/lists"))
+        response_json = self.api.get(self.build_board_url("lists"))
         return [CardList.json_to_card_list(item) for item in response_json]
 
     def get_list(self, name) -> CardList:

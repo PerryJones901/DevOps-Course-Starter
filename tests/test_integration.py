@@ -55,5 +55,5 @@ def test_index_page_contains_card_names(mock_get_requests, client):
     response_data = client.get('/').data
     soup = BeautifulSoup(response_data, 'html.parser')
     all_task_id_and_name_elements = soup.find_all(class_="task-id-and-name")
-    for i in range(3):
-        assert (const.CARD_ARR[i]["name"] in all_task_id_and_name_elements[i].string)
+    for index, card in enumerate(const.CARD_ARR):
+        assert (card["name"] in all_task_id_and_name_elements[index].string)
