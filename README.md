@@ -71,4 +71,3 @@ poetry run pytest
 To make sure pytest can detect additional test files, make sure:
 * the filename is of the form `test_*.py` or `*_test.py`
 * the test methods are prefixed with `test`
-* 
