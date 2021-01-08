@@ -114,6 +114,7 @@ env/
 
 ### Configuration files ###
 .env
+.venv
 
 ### Gecko Driver files ###
 geckodriver.log
@@ -124,3 +125,6 @@ geckodriver.exe
 
 ## Gunicorn files ##
 gunicorn.log
+
+## VS Code ##
+.vscode/

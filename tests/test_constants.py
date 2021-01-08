@@ -23,7 +23,7 @@ TODO_CARD = {
     "id": "abc1",
     "idList": TODO_LIST['id'],
     "idShort": 1,
-    "name": "This is another To Do item",
+    "name": "This is a To Do item in ToDo List",
     "due": None,
     "dateLastActivity": "2020-06-22T19:17:11.988Z",
 }
@@ -32,7 +32,7 @@ DOING_CARD = {
     "id": "abc2",
     "idList": DOING_LIST['id'],
     "idShort": 2,
-    "name": "This is another To Do item",
+    "name": "This is another To Do item but in Doing List",
     "due": None,
     "dateLastActivity": "2020-06-22T19:17:11.988Z",
 }
@@ -41,7 +41,7 @@ DONE_CARD = {
     "id": "abc3",
     "idList": DONE_LIST['id'],
     "idShort": 3,
-    "name": "This is another To Do item",
+    "name": "This is the final To Do item and it is completed",
     "due": None,
     "dateLastActivity": "2020-06-22T19:17:11.988Z",
 }

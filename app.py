@@ -4,12 +4,15 @@ from flask import Flask, redirect, render_template, request, url_for
 
 import api.session_items as session
 import api.sorter as sorter
-import api.trello_helper as trello
+from api.trello_config import TrelloConfig
+from api.trello_helper import TrelloHelper
 from models.view_model import ViewModel
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object('api.flask_config.Config')
+    config = TrelloConfig()
+    trello = TrelloHelper(config)
+    app.config.from_object(config)
 
     @app.route('/')
     def index():
