@@ -14,11 +14,8 @@ README.md
 
 # Testing
 /.pytest_cache
-/tests
-/tests_e2e
 geckodriver.exe
 geckodriver.log
-pytest.ini
 
 # Vagrant
 Vagrantfile
