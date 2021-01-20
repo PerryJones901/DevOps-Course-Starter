@@ -8,9 +8,8 @@ env:
   - TRELLO_BASE_URL="https://api.trello.com/1"
 
 script:
-- echo "hello world"
 - docker build --target test --tag my-test-image .
-- docker run --env-file tests/.env.test my-test-image tests
+- docker run my-test-image tests
 - docker run 
   -e FLASK_APP
   -e FLASK_ENV
