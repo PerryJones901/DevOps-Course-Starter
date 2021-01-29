@@ -33,5 +33,5 @@ deploy:
   provider: script
   script: bash .travis_docker.sh
   on:
-    branch: exercise-8
+    branch: master
     condition: ${TRAVIS_PULL_REQUEST} == "false"
