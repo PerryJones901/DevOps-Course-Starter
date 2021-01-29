@@ -22,3 +22,7 @@ docker login --username=_ --password=${HEROKU_AUTH_TOKEN} registry.heroku.com
 docker pull $TARGET_IMAGE
 docker tag $TARGET_IMAGE $HEROKU_APP_REGISTRY_URL
 docker push $HEROKU_APP_REGISTRY_URL
+
+# Release
+curl https://cli-assets.heroku.com/install.sh | sh
+heroku container:release web --app=$HEROKU_APP_NAME
