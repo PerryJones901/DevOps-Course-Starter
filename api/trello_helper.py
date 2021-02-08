@@ -4,8 +4,9 @@ import requests
 from models.card import Card
 from models.card_list import CardList
 from typing import List
+from api.itask_data_manager import ITaskDataManager
 
-class TrelloHelper:
+class TrelloHelper(ITaskDataManager):
     def __init__(self, trello_config: TrelloConfig):
         self.config = trello_config
         self.api = ApiHelper(trello_config)
