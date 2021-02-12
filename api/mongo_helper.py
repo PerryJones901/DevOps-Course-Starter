@@ -1,7 +1,11 @@
 from bson.objectid import ObjectId
 from pymongo import MongoClient
+from typing import List
+
 from api.itask_data_manager import ITaskDataManager
 from api.mongo_config import MongoConfig
+from models.card import Card
+from models.card_list import CardList
 
 class MongoHelper(ITaskDataManager):
     def __init__(self, mongo_config: MongoConfig):
@@ -11,11 +15,13 @@ class MongoHelper(ITaskDataManager):
         self.cards = self.db['cards']
         self.lists = self.db['lists']
     
-    def get_cards(self):
-        self.cards.find()
+    def get_cards(self) -> List[Card]:
+        mongo_card_array = self.cards.find()
+        return [Card.mongo_dict_to_card(mongo_card) for mongo_card in mongo_card_array]
     
-    def get_card(self, id):
-        self.cards.find({'_id': ObjectId(id)})
+    def get_card(self, id) -> Card:
+        mongo_card = self.cards.find({'_id': ObjectId(id)})
+        return Card.mongo_dict_to_card(mongo_card)
 
     def add_card(self, title, list_id, due):
         self.cards.insert_one(self._mongo_card_json(title, list_id, due))
@@ -24,10 +30,12 @@ class MongoHelper(ITaskDataManager):
         self.cards.delete_one({'_id': ObjectId(id)})
 
     def get_lists(self):
-        self.lists.find()
+        mongo_card_lists = self.lists.find()
+        return [CardList.mongo_dict_to_card_list(mongo_list) for mongo_list in mongo_card_lists]
 
     def get_list(self, name):
-        self.lists.find({'name': name})
+        mongo_card_list = self.lists.find({'name': name})
+        return CardList.mongo_dict_to_card_list(mongo_card_list)
 
     def move_card_to_list(self, card_id, list_id):
         self.cards.update_one({'_id': ObjectId(card_id)},{'$set':{'list_id': list_id}})

@@ -8,3 +8,9 @@ class CardList:
         id = json['id']
         name = json['name']
         return cls(id, name)
+
+    @classmethod
+    def mongo_dict_to_card_list(cls, mongo_dict: dict):
+        id = mongo_dict['_id']
+        name = mongo_dict['name']
+        return cls(id, name)
