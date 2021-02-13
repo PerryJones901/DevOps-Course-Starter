@@ -18,7 +18,7 @@ docker push ${TARGET_IMAGE_VERSIONED}
 
 # Push to Heroku Registry
 
-docker login --username=_ --password=${HEROKU_AUTH_TOKEN} registry.heroku.com
+echo $HEROKU_AUTH_TOKEN | docker login --username=_ --password-stdin registry.heroku.com
 docker pull $TARGET_IMAGE
 docker tag $TARGET_IMAGE $HEROKU_APP_REGISTRY_URL
 docker push $HEROKU_APP_REGISTRY_URL
