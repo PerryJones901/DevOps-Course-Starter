@@ -1,5 +1,5 @@
 class CardList:
-    def __init__(self, id, name):
+    def __init__(self, id: str, name: str):
         self.id = id
         self.name = name
     
@@ -11,6 +11,6 @@ class CardList:
 
     @classmethod
     def mongo_dict_to_card_list(cls, mongo_dict: dict):
-        id = mongo_dict['_id']
+        id = str(mongo_dict['_id'])
         name = mongo_dict['name']
         return cls(id, name)

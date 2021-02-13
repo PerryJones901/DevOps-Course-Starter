@@ -22,12 +22,12 @@ class Card:
 
     @classmethod
     def mongo_dict_to_card(cls, mongo_dict: dict):
-        id = mongo_dict['_id']
+        id = str(mongo_dict['_id'])
         idShort = mongo_dict['id_short']
         title = mongo_dict['name']
         list_id = mongo_dict['list_id']
-        due_date = cls._getOrNoneDate(mongo_dict, 'due')
-        last_modified = cls._getOrNoneDate(mongo_dict, 'date_last_activity')
+        due_date = mongo_dict['due_date'].date()
+        last_modified = mongo_dict['date_last_activity'].date()
 
         return cls(id, idShort, title, list_id, due_date, last_modified)
 

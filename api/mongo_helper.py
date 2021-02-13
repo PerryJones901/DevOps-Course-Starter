@@ -42,9 +42,9 @@ class MongoHelper(ITaskDataManager):
 
     @staticmethod
     def _get_connection_string(config: MongoConfig):
-        return f"mongodb+srv://{config.MONGO_USERNAME}:\
-            {config.MONGO_PASSWORD}@cluster0.vwqib.mongodb.net/\
-            {config.MONGO_DB_NAME}?retryWrites=true&w=majority"
+        return f"mongodb+srv://{config.MONGO_USERNAME}:"\
+        + f"{config.MONGO_PASSWORD}@cluster0.vwqib.mongodb.net/"\
+        + f"{config.MONGO_DB_NAME}?retryWrites=true&w=majority"
 
     @staticmethod
     def _mongo_card_json(title: str, list_id, due):
