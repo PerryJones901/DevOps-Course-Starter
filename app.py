@@ -6,8 +6,6 @@ from api.mongo_config import MongoConfig
 from api.mongo_helper import MongoHelper
 import api.session_items as session
 import api.sorter as sorter
-from api.trello_config import TrelloConfig
-from api.trello_helper import TrelloHelper
 from models.view_model import ViewModel
 
 def create_app():
