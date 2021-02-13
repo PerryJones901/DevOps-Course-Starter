@@ -1,4 +1,5 @@
 from bson.objectid import ObjectId
+from datetime import date, datetime
 from pymongo import MongoClient
 from typing import List
 
@@ -12,9 +13,10 @@ class MongoHelper(ITaskDataManager):
         self.config = mongo_config
         self.client = MongoClient(self._get_connection_string(mongo_config))
         self.db = self.client[mongo_config.MONGO_DB_NAME]
+        self.board_metadata = self.db['board-metadata']
         self.cards = self.db['cards']
         self.lists = self.db['lists']
-    
+
     def get_cards(self) -> List[Card]:
         mongo_card_array = self.cards.find()
         return [Card.mongo_dict_to_card(mongo_card) for mongo_card in mongo_card_array]
@@ -24,7 +26,10 @@ class MongoHelper(ITaskDataManager):
         return Card.mongo_dict_to_card(mongo_card)
 
     def add_card(self, title, list_id, due):
-        self.cards.insert_one(self._mongo_card_json(title, list_id, due))
+        id_short = self._increment_id_short_counter()
+        due_date = self._get_due_or_default(due)
+        latest_modified = datetime.now()
+        self.cards.insert_one(self._mongo_card_dict(id_short, title, list_id, due_date, latest_modified))
 
     def delete_card(self, id):
         self.cards.delete_one({'_id': ObjectId(id)})
@@ -34,11 +39,19 @@ class MongoHelper(ITaskDataManager):
         return [CardList.mongo_dict_to_card_list(mongo_list) for mongo_list in mongo_card_lists]
 
     def get_list(self, name):
-        mongo_card_list = self.lists.find({'name': name})
+        mongo_card_list = self.lists.find_one({'name': name})
         return CardList.mongo_dict_to_card_list(mongo_card_list)
 
     def move_card_to_list(self, card_id, list_id):
-        self.cards.update_one({'_id': ObjectId(card_id)},{'$set':{'list_id': list_id}})
+        datetime_now = datetime.now()
+        self.cards.update_one({'_id': ObjectId(card_id)},{'$set':{'list_id': list_id, 'date_last_activity': datetime_now}})
+
+    def _increment_id_short_counter(self):
+        metadata = self.board_metadata.find_one()
+        latest_short_id = metadata['id_short_latest_used']
+        new_short_id = latest_short_id + 1
+        self.board_metadata.update_one({'_id': metadata['_id']},{'$set':{'id_short_latest_used': new_short_id}})
+        return str(new_short_id)
 
     @staticmethod
     def _get_connection_string(config: MongoConfig):
@@ -47,5 +60,12 @@ class MongoHelper(ITaskDataManager):
         + f"{config.MONGO_DB_NAME}?retryWrites=true&w=majority"
 
     @staticmethod
-    def _mongo_card_json(title: str, list_id, due):
-        return { 'title' : title, 'list_id': list_id, 'due': due }
+    def _mongo_card_dict(id_short: str, title: str, list_id: str, due: datetime, last_activity: datetime):
+        return { 'id_short': id_short, 'name' : title, 'list_id': list_id, 'due_date': due, 'date_last_activity': last_activity }
+
+    @staticmethod
+    def _get_due_or_default(date_str: str):
+        if "" == date_str:
+            return None
+        else:
+            return datetime.strptime(date_str, '%Y-%m-%d')
