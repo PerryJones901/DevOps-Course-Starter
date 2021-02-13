@@ -1,15 +1,14 @@
 FROM python:3.8-buster AS base
 EXPOSE 5000
 
+ENV PORT=5000
 # Install Poetry
-ENV POETRY_VERSION=1.1.2
-RUN pip install "poetry==$POETRY_VERSION"
+RUN pip install poetry
 
 WORKDIR /app
 
 # Update Packages
 COPY pyproject.toml pyproject.toml
-COPY poetry.lock poetry.lock
 RUN poetry install
 
 
@@ -22,10 +21,11 @@ COPY app.py app.py
 COPY api api
 COPY models models
 COPY templates templates
+COPY run-prod.sh run-prod.sh
+RUN chmod +x run-prod.sh
 
 # Defining default execution behaviour
-ENTRYPOINT poetry run gunicorn -w 4 'app:create_app()' --bind 0.0.0.0:5000 --access-logfile gunicorn.log
-
+ENTRYPOINT [ "./run-prod.sh" ]
 
 FROM base AS development
 # Poetry Run

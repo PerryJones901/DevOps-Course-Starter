@@ -71,3 +71,7 @@ poetry run pytest
 To make sure pytest can detect additional test files, make sure:
 * the filename is of the form `test_*.py` or `*_test.py`
 * the test methods are prefixed with `test`
+
+## CI/CD Pipeline
+
+This repository uses Travis to build docker images and run tests on both PR branches and master. Any master builds that succeed will automatically deploy to Heroku (link to the site [here](https://perfectproductivityplatform.herokuapp.com/))
