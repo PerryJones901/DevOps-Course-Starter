@@ -12,6 +12,7 @@ def create_app():
     app = Flask(__name__)
     config = MongoConfig()
     data_manager = MongoHelper(config)
+    app.data_manager = data_manager
     app.config.from_object(config)
 
     @app.route('/')

@@ -46,6 +46,12 @@ class MongoHelper(ITaskDataManager):
         datetime_now = datetime.now()
         self.cards.update_one({'_id': ObjectId(card_id)},{'$set':{'list_id': list_id, 'date_last_activity': datetime_now}})
 
+    def add_test_db(self, name: str):
+        new_db = self.client[name]
+
+    def drop_test_db(self, name: str):
+        self.client.drop_database(name)
+
     def _increment_id_short_counter(self):
         metadata = self.board_metadata.find_one()
         latest_short_id = metadata['id_short_latest_used']
