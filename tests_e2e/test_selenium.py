@@ -32,7 +32,7 @@ def test_app():
     
     config = MongoConfig()
     data_manager = MongoHelper(config)
-    test_db_name = _random_db_name_string()
+    test_db_name = "selenium_test_db"
     data_manager.add_test_db(test_db_name)
     data_manager.client[test_db_name]['lists'].insert_many(const.LIST_ARR)
     data_manager.client[test_db_name]['board-metadata'].insert_one({'id_short_latest_used': 0})
@@ -66,6 +66,3 @@ def test_task_journey(driver, test_app):
     )
 
     assert "Do the washing" in task.text
-
-def _random_db_name_string():
-    return ''.join(random.choice(string.ascii_letters) for _ in range(16))
