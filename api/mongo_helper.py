@@ -62,7 +62,8 @@ class MongoHelper(ITaskDataManager):
     @staticmethod
     def _get_connection_string(config: MongoConfig):
         return f"mongodb+srv://{config.MONGO_USERNAME}:"\
-        + f"{config.MONGO_PASSWORD}@cluster0.vwqib.mongodb.net/"\
+        + f"{config.MONGO_PASSWORD}@"\
+        + f"{config.MONGO_CLUSTER_NAME}.vwqib.mongodb.net/"\
         + f"{config.MONGO_DB_NAME}?retryWrites=true&w=majority"
 
     @staticmethod
