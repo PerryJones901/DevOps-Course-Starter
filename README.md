@@ -4,9 +4,16 @@
 
 This project has multiple ways of being run (either with Poetry, Docker for Dev or Docker for Prod).
 
+### MongoDB Access
+* This application requires a connection to a MongoDB.
+* To setup your own, visit https://www.mongodb.com/
+
 ### Environment Variables
 * Create a file named **.env** at the root directory, with the same layout as **.env.template**.
-* Remove the \<change me> sections and populate values
+* Remove the \<change me\> sections and populate values
+* in particular:
+  * ```MONGO_USERNAME``` and ```MONGO_PASSWORD``` will not be the credentials of your MongoDB account, but rather to a database user you can create in Database Access (can be found in the Security section of the MongoDB portal)
+  * ```MONGO_CLUSTER_NAME``` is the name of your cluster (by default this is ```Cluster0```), and ```MONGO_DB_NAME``` will point to the database you wish to use in this cluster.
 
 ### Run with Docker (Using Flask for Development)
 ```bash
