@@ -36,7 +36,7 @@ def test_app():
     data_manager.add_test_db(test_db_name)
     data_manager.client[test_db_name]['lists'].remove({})
     data_manager.client[test_db_name]['lists'].insert_many(const.LIST_ARR)
-    data_manager.client[test_db_name]['board-metadata'].remove({})
+    data_manager.client[test_db_name]['board-metadata'].delete_many({})
     data_manager.client[test_db_name]['board-metadata'].insert_one({'id_short_latest_used': 0})
     os.environ['MONGO_DB_NAME'] = test_db_name
     
