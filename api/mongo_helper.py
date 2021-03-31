@@ -1,6 +1,6 @@
 from bson.objectid import ObjectId
 from datetime import date, datetime
-from pymongo import MongoClient
+import pymongo
 from typing import List
 
 from api.itask_data_manager import ITaskDataManager
@@ -11,7 +11,7 @@ from models.card_list import CardList
 class MongoHelper(ITaskDataManager):
     def __init__(self, mongo_config: MongoConfig):
         self.config = mongo_config
-        self.client = MongoClient(self._get_connection_string(mongo_config))
+        self.client = pymongo.MongoClient(self._get_connection_string(mongo_config))
         self.db = self.client[mongo_config.MONGO_DB_NAME]
         self.board_metadata = self.db['board-metadata']
         self.cards = self.db['cards']
@@ -79,7 +79,7 @@ class MongoHelper(ITaskDataManager):
             return datetime.strptime(date_str, '%Y-%m-%d')
 
     def initialise_db(self):
-        if self.lists.count() == 0:
+        if self.lists.count_documents({}) == 0:
             self.lists.insert_many([{'name':'To Do'},{'name':'Doing'},{'name':'Done'}])
-        if self.board_metadata.count() == 0:
+        if self.board_metadata.count_documents({}) == 0:
             self.board_metadata.insert_one({'id_short_latest_used':0})

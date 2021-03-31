@@ -1,5 +1,9 @@
 from datetime import datetime
 
+BOARD_METADATA = {
+    'id_short_latest_used': 0
+}
+
 TODO_LIST = {
     "_id": "list1",
     "name": "To Do",
