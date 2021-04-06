@@ -1,21 +1,53 @@
 from datetime import datetime
+from pprint import pprint
+import requests
 
 from flask import Flask, redirect, render_template, request, url_for
+from flask_login import LoginManager, login_required, login_user
+from oauthlib.oauth2 import WebApplicationClient
 
+from api.auth_config import AuthConfig
 from api.mongo_config import MongoConfig
 from api.mongo_helper import MongoHelper
 import api.session_items as session
 import api.sorter as sorter
+from models.user import User
 from models.view_model import ViewModel
 
 def create_app():
     app = Flask(__name__)
     config = MongoConfig()
     data_manager = MongoHelper(config)
+    app.secret_key = config.SECRET_KEY
     app.data_manager = data_manager
     app.config.from_object(config)
+    auth_config = AuthConfig()
+
+    client = WebApplicationClient(auth_config.AUTH_CLIENT_ID)
+    login_manager = LoginManager()
+
+    @login_manager.unauthorized_handler
+    def unauthenticated():
+        uri = client.prepare_request_uri('https://github.com/login/oauth/authorize')
+        return redirect(uri)
+
+    @app.route('/login/callback')
+    def login_callback():
+        code_param = request.args.get("code")
+        url, headers, body = client.prepare_token_request('https://github.com/login/oauth/access_token', client_id=auth_config.AUTH_CLIENT_ID, client_secret=auth_config.AUTH_CLIENT_SECRET, code=code_param)
+        something2 = requests.post(url, body, headers=headers)
+        something3 = client.parse_request_body_response(something2.text)
+        something4 = requests.get("https://api.github.com/user", headers={"Authorization": f"Bearer {something3['access_token']}"})
+        login_user(get_user(something4.json()['id']))
+        return redirect(url_for('index'))
+    
+    @login_manager.user_loader
+    def load_user(user_id):
+        return get_user(user_id)
+    login_manager.init_app(app)
 
     @app.route('/')
+    @login_required
     def index():
         cards = data_manager.get_cards()
         sort_by_field = session.get_sort_by_field()
@@ -36,6 +68,7 @@ def create_app():
         return redirect(url_for('index'))
 
     @app.route('/add', methods=['POST'])
+    @login_required
     def add_card_to_list():
         title = request.form.get('title')
         list_name = request.form.get('card_list')
@@ -45,12 +78,14 @@ def create_app():
         return redirect(url_for('index'))
 
     @app.route('/card/<card_id>', methods=['POST'])
+    @login_required
     def move_card_to_list(card_id):
         list_id = request.form.get('card_list')
         data_manager.move_card_to_list(card_id, list_id)
         return redirect(url_for('index'))
 
     @app.route('/delete/<card_id>', methods=['POST'])
+    @login_required
     def delete_item(card_id):
         data_manager.delete_card(card_id)
         return redirect(url_for('index'))
@@ -59,3 +94,6 @@ def create_app():
         app.run()
 
     return app
+
+def get_user(user_id):
+    return User('name', user_id)
