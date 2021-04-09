@@ -6,6 +6,7 @@ from flask import Flask, redirect, render_template, request, url_for
 from flask_login import LoginManager, login_required, login_user, current_user
 from oauthlib.oauth2 import WebApplicationClient
 
+from api.auth import get_user, requires_role
 from api.auth_config import AuthConfig
 from api.mongo_config import MongoConfig
 from api.mongo_helper import MongoHelper
@@ -36,10 +37,10 @@ def create_app():
     def login_callback():
         code_param = request.args.get("code")
         url, headers, body = client.prepare_token_request('https://github.com/login/oauth/access_token', client_id=auth_config.AUTH_CLIENT_ID, client_secret=auth_config.AUTH_CLIENT_SECRET, code=code_param)
-        something2 = requests.post(url, body, headers=headers)
-        something3 = client.parse_request_body_response(something2.text)
-        something4 = requests.get("https://api.github.com/user", headers={"Authorization": f"Bearer {something3['access_token']}"})
-        login_user(get_user(something4.json()['id']))
+        token_response = requests.post(url, body, headers=headers)
+        access_token = client.parse_request_body_response(token_response.text)['access_token']
+        github_user_profile = requests.get("https://api.github.com/user", headers={"Authorization": f"Bearer {access_token}"}).json()
+        login_user(get_user(github_user_profile['id']))
         return redirect(url_for('index'))
     
     @login_manager.user_loader
@@ -100,19 +101,3 @@ def create_app():
         app.run()
 
     return app
-
-def get_user(user_id):
-    return User('name', user_id)
-
-def requires_role(role: Role):
-    def decorator(func):
-        def wrapper(*args, **kwargs):
-            user = get_user(current_user.get_id())
-            if(user.role is role):
-                return func(*args, **kwargs)
-            else:
-                return 'Not Authorized'
-        wrapper.__name__ = func.__name__
-        return wrapper
-    return decorator
-    
