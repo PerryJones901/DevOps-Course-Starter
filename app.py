@@ -3,7 +3,7 @@ from pprint import pprint
 import requests
 
 from flask import Flask, redirect, render_template, request, url_for
-from flask_login import LoginManager, login_required, login_user
+from flask_login import LoginManager, login_required, login_user, current_user
 from oauthlib.oauth2 import WebApplicationClient
 
 from api.auth_config import AuthConfig
@@ -11,6 +11,7 @@ from api.mongo_config import MongoConfig
 from api.mongo_helper import MongoHelper
 import api.session_items as session
 import api.sorter as sorter
+from models.role import Role
 from models.user import User
 from models.view_model import ViewModel
 
@@ -48,6 +49,7 @@ def create_app():
 
     @app.route('/')
     @login_required
+    @requires_role(Role.WRITER)
     def index():
         cards = data_manager.get_cards()
         sort_by_field = session.get_sort_by_field()
@@ -97,3 +99,14 @@ def create_app():
 
 def get_user(user_id):
     return User('name', user_id)
+
+def requires_role(role: Role):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            user = get_user(current_user.get_id())
+            if(user.role is role):
+                return func(*args, **kwargs)
+            else:
+                return 'Not Authorized'
+        return wrapper
+    return decorator
