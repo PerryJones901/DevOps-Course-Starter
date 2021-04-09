@@ -49,14 +49,15 @@ def create_app():
 
     @app.route('/')
     @login_required
-    @requires_role(Role.WRITER)
     def index():
         cards = data_manager.get_cards()
         sort_by_field = session.get_sort_by_field()
         items = sorter.sort_cards(cards, sort_by_field)
         lists = data_manager.get_lists()
         show_all = session.get_show_all_completed_tasks()
-        item_view_model = ViewModel(items, lists, show_all, datetime.now().date())
+        user_role = get_user(current_user.get_id()).role
+
+        item_view_model = ViewModel(items, lists, show_all, datetime.now().date(), user_role)
         return render_template('index.html', view_model=item_view_model)
 
     @app.route('/sorted/<field>')
@@ -71,6 +72,7 @@ def create_app():
 
     @app.route('/add', methods=['POST'])
     @login_required
+    @requires_role(Role.WRITER)
     def add_card_to_list():
         title = request.form.get('title')
         list_name = request.form.get('card_list')
@@ -81,6 +83,7 @@ def create_app():
 
     @app.route('/card/<card_id>', methods=['POST'])
     @login_required
+    @requires_role(Role.WRITER)
     def move_card_to_list(card_id):
         list_id = request.form.get('card_list')
         data_manager.move_card_to_list(card_id, list_id)
@@ -88,6 +91,7 @@ def create_app():
 
     @app.route('/delete/<card_id>', methods=['POST'])
     @login_required
+    @requires_role(Role.WRITER)
     def delete_item(card_id):
         data_manager.delete_card(card_id)
         return redirect(url_for('index'))
@@ -108,5 +112,7 @@ def requires_role(role: Role):
                 return func(*args, **kwargs)
             else:
                 return 'Not Authorized'
+        wrapper.__name__ = func.__name__
         return wrapper
     return decorator
+    
