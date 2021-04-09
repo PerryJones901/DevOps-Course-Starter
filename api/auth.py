@@ -11,7 +11,7 @@ def requires_role(role: Role):
     def decorator(func):
         def wrapper(*args, **kwargs):
             user = get_user(current_user.get_id())
-            if(_authorisation_disabled() or user.role is role):
+            if(authorisation_disabled() or user.role is role):
                 return func(*args, **kwargs)
             else:
                 return 'Not Authorized'
@@ -19,5 +19,6 @@ def requires_role(role: Role):
         return wrapper
     return decorator
 
-def _authorisation_disabled() -> bool:
+def authorisation_disabled() -> bool:
+    print(os.environ.get('LOGIN_DISABLED') == "True")
     return os.environ.get('LOGIN_DISABLED') == "True"

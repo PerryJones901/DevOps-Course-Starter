@@ -29,6 +29,7 @@ def test_app():
     # Create a new Mongo Database & update the Mongo Database Name environment variable
     file_path = find_dotenv('.env')
     load_dotenv(file_path, override=True)
+    os.environ['LOGIN_DISABLED'] = "True"
     
     config = MongoConfig()
     data_manager = MongoHelper(config)

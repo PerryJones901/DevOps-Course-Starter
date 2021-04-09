@@ -6,7 +6,7 @@ from flask import Flask, redirect, render_template, request, url_for
 from flask_login import LoginManager, login_required, login_user, current_user
 from oauthlib.oauth2 import WebApplicationClient
 
-from api.auth import get_user, requires_role
+from api.auth import authorisation_disabled, get_user, requires_role
 from api.auth_config import AuthConfig
 from api.mongo_config import MongoConfig
 from api.mongo_helper import MongoHelper
@@ -56,7 +56,10 @@ def create_app():
         items = sorter.sort_cards(cards, sort_by_field)
         lists = data_manager.get_lists()
         show_all = session.get_show_all_completed_tasks()
-        user_role = get_user(current_user.get_id()).role
+        if(authorisation_disabled()):
+            user_role = Role.WRITER
+        else:
+            user_role = get_user(current_user.get_id()).role
 
         item_view_model = ViewModel(items, lists, show_all, datetime.now().date(), user_role)
         return render_template('index.html', view_model=item_view_model)

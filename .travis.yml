@@ -12,6 +12,7 @@ env:
   - FLASK_ENV="development"
   - MONGO_CLUSTER_NAME="cluster0.vwqib.mongodb.net"
   - MONGO_DB_NAME="ppp-board-test"
+  - LOGIN_DISABLED=True
   - DOCKER_USERNAME=perryjones
   - DOCKER_REPO=ppp
   - HEROKU_APP_NAME="perfectproductivityplatform"
@@ -26,6 +27,7 @@ script:
   -e MONGO_PASSWORD
   -e MONGO_CLUSTER_NAME
   -e MONGO_DB_NAME
+  -e LOGIN_DISABLED
   my-test-image tests_e2e
 
 deploy:
