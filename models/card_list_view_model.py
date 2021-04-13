@@ -9,7 +9,7 @@ class CardListViewModel:
         self._cards = []
 
     @property
-    def id(self) -> int:
+    def id(self) -> str:
         return self._id
 
     @property

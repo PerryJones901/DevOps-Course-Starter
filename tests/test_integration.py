@@ -1,5 +1,4 @@
 import os
-import tests.test_constants as const
 from datetime import datetime, timedelta
 from unittest import mock
 
@@ -9,49 +8,44 @@ import flask
 import pytest
 
 import app
-from models.card import Card
-from models.card_list import CardList
-from models.view_model import ViewModel
-
-from .helpers.mock_response import MockResponse
+import tests.test_mongo_constants as const
 
 @pytest.fixture
 def client():
     # Use our test integration config instead of the 'real' version
     file_path = find_dotenv('.env.test')
     load_dotenv(file_path, override=True)
+
     # Create the new app.
-    test_app = app.create_app()
+    with mock.patch('pymongo.MongoClient', side_effect=mock_mongo_client):
+        test_app = app.create_app()
     test_app.testing = True
 
     # Use the app to create a test_client that can be used in our tests.
     with test_app.test_client() as client:
         yield client
 
-def params_url_string(params):
-    config = flask.current_app.config
-    params = {"key": config.KEY, "token": config.TOKEN, **params}
-    params_url_suffix = '?'
-    for (key, value) in params:
-        params_url_suffix = params_url_suffix + f'{key}={value}'
-    return params_url_suffix
+def mock_mongo_client(*args, **kwargs):
+    cards_mock = mock.Mock()
+    cards_mock.find.return_value = const.CARD_ARR
 
-def mock_get_requests(*args, **kwargs):
-    config = flask.current_app.config
-    if args[0] == f'https://api.trello.com/1/boards/{config["BOARD_ID"]}/cards':
-        return MockResponse(const.CARD_ARR, 200)
-    elif args[0] == f'https://api.trello.com/1/boards/{config["BOARD_ID"]}/lists':
-        return MockResponse(const.LIST_ARR, 200)
+    lists_mock = mock.Mock()
+    lists_mock.find.return_value = const.LIST_ARR
+    lists_mock.count_documents.return_value = 3
 
-    return MockResponse(None, 404)
+    board_metadata = mock.Mock()
+    lists_mock.count_documents.return_value = 1
 
-@mock.patch('requests.get', side_effect=mock_get_requests)
-def test_index_page(mock_get_requests, client):
-    response = client.get('/')
-    assert response.status_code == 200
+    return {
+         os.environ.get('MONGO_DB_NAME'): {
+            'cards': cards_mock,
+            'lists': lists_mock,
+            'board-metadata': board_metadata
+        }
+    }
 
-@mock.patch('requests.get', side_effect=mock_get_requests)
-def test_index_page_contains_card_names(mock_get_requests, client):
+@mock.patch('pymongo.MongoClient', side_effect=mock_mongo_client)
+def test_index_page_contains_card_names(mock_mongo_client, client):
     response_data = client.get('/').data
     soup = BeautifulSoup(response_data, 'html.parser')
     all_task_id_and_name_elements = soup.find_all(class_="task-id-and-name")

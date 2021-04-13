@@ -1,4 +1,6 @@
 import os
+import random
+import string
 from threading import Thread
 
 from dotenv import find_dotenv, load_dotenv
@@ -8,9 +10,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from api.trello_config import TrelloConfig
-from api.trello_helper import TrelloHelper
 import app
+from api.mongo_config import MongoConfig
+from api.mongo_helper import MongoHelper
+import tests.test_mongo_constants as const
 
 @pytest.fixture(scope='module')
 def driver():
@@ -23,19 +26,24 @@ def driver():
 
 @pytest.fixture(scope='module')
 def test_app():
-    # Create the new board & update the board id environment variable
+    # Create a new Mongo Database & update the Mongo Database Name environment variable
     file_path = find_dotenv('.env')
     load_dotenv(file_path, override=True)
     
-    config = TrelloConfig()
-    trello_helper = TrelloHelper(config)
-    board_id = trello_helper.add_board()
-    os.environ['TRELLO_BOARD_ID'] = board_id
+    config = MongoConfig()
+    data_manager = MongoHelper(config)
+    test_db_name = "selenium_test_db"
+    data_manager.add_test_db(test_db_name)
+    data_manager.client[test_db_name]['lists'].remove({})
+    data_manager.client[test_db_name]['lists'].insert_many(const.LIST_ARR)
+    data_manager.client[test_db_name]['board-metadata'].delete_many({})
+    data_manager.client[test_db_name]['board-metadata'].insert_one({'id_short_latest_used': 0})
+    os.environ['MONGO_DB_NAME'] = test_db_name
     
-    # construct the new application
+    # Create App
     application = app.create_app()
     
-    # start the app in its own thread.
+    # Start App in Thread
     thread = Thread(target=lambda: application.run(use_reloader=False))
     thread.daemon = True
     thread.start()
@@ -43,7 +51,7 @@ def test_app():
 
     # Tear Down
     thread.join(1)
-    trello_helper.delete_board(board_id)
+    data_manager.drop_test_db(test_db_name)
 
 def test_task_journey(driver, test_app):
     driver.get('http://localhost:5000/')
