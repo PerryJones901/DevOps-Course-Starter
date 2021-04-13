@@ -10,7 +10,7 @@ env:
   - secure: "tSBhcO4FNL5KpvxIDIahKWM3DdWNamuJD7drCkssoLU9F5pTC+hcuGK+OzEUClxo6UbVLtynPppyYWPkBTv8tih0PACxm7mb+D7/Vp2AbET6VA0FY9PbGyz7EDa6VfNchW9mLrsaIBnj6WrFumg3K8aCXLVcpAhrxdXe/8QqMZMurfIEeTKRfqB/PBi6Mbagq5CaDh7ncNMw1sBYmrHcDkHcKod7ws/ngym8JMbY1O0hMeJFpec6i4+gzb2mJRGWv77UGHi+UK1NgK4wDn2bpCiCL1E3jdHkqZtyqPrGop/nhXTmgPgFqauLYqNYz9Bi+K03/hCcE7RBU1vV5V+fZn9rr00nfNyzGMXr0+fz8+bdmBClHgdiS/Q+QGeA0SJDV1pZ/5T9NxGwk+eAcFmqIMEHdngtSfNfnUw2rk0AK/AM5lP0K22KCQLVbkMOBvwTib2U22uC+wW2ljVN3ym69sE+loJQNcTroVtbqQRy+dxprIAxAKhNGE245izbRD077g3OR4TuqBLs0IdfFh2OJJNmh8PBoxFxZRJXDunlOKuV4DHVPbI/e/iIJVYB9zgY75ixOF535NUCodGzrncFCRJuUksj6OSsjKOC+jvC+WbSqZWephrijMItVJuM06IRocu2jL8762w7rTaBcpJdczflTW8Y1kgxgImrljX5Xkg="
   - FLASK_APP="app"
   - FLASK_ENV="development"
-  - MONGO_CLUSTER_NAME="cluster0"
+  - MONGO_CLUSTER_NAME="cluster0.vwqib.mongodb.net"
   - MONGO_DB_NAME="ppp-board-test"
   - DOCKER_USERNAME=perryjones
   - DOCKER_REPO=ppp
