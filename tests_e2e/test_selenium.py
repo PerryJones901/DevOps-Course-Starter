@@ -11,7 +11,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 import app
-from api.mongo_config import MongoConfig
+from api.app_config import AppConfig
 from api.mongo_helper import MongoHelper
 import tests.test_mongo_constants as const
 
@@ -31,7 +31,7 @@ def test_app():
     load_dotenv(file_path, override=True)
     os.environ['LOGIN_DISABLED'] = "True"
     
-    config = MongoConfig()
+    config = AppConfig()
     data_manager = MongoHelper(config)
     test_db_name = "selenium_test_db"
     data_manager.add_test_db(test_db_name)
@@ -40,7 +40,6 @@ def test_app():
     data_manager.client[test_db_name]['board-metadata'].delete_many({})
     data_manager.client[test_db_name]['board-metadata'].insert_one({'id_short_latest_used': 0})
     os.environ['MONGO_DB_NAME'] = test_db_name
-    os.environ['LOGIN_DISABLED'] = "True"
     
     # Create App
     application = app.create_app()

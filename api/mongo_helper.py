@@ -4,15 +4,15 @@ import pymongo
 from typing import List
 
 from api.itask_data_manager import ITaskDataManager
-from api.mongo_config import MongoConfig
+from api.app_config import AppConfig
 from models.card import Card
 from models.card_list import CardList
 
 class MongoHelper(ITaskDataManager):
-    def __init__(self, mongo_config: MongoConfig):
-        self.config = mongo_config
-        self.client = pymongo.MongoClient(self._get_connection_string(mongo_config))
-        self.db = self.client[mongo_config.MONGO_DB_NAME]
+    def __init__(self, app_config: AppConfig):
+        self.config = app_config
+        self.client = pymongo.MongoClient(self._get_connection_string(app_config))
+        self.db = self.client[app_config.MONGO_DB_NAME]
         self.board_metadata = self.db['board-metadata']
         self.cards = self.db['cards']
         self.lists = self.db['lists']
@@ -61,7 +61,7 @@ class MongoHelper(ITaskDataManager):
         return str(new_short_id)
 
     @staticmethod
-    def _get_connection_string(config: MongoConfig):
+    def _get_connection_string(config: AppConfig):
         return f"mongodb+srv://{config.MONGO_USERNAME}:"\
         + f"{config.MONGO_PASSWORD}@"\
         + f"{config.MONGO_CLUSTER_NAME}/"\

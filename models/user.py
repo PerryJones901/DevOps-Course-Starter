@@ -2,8 +2,7 @@ from flask_login import UserMixin
 from .role import Role
 
 class User(UserMixin):
-    def __init__(self, name, id, active=True, role=Role.READER):
-        self.name = name
+    def __init__(self, id, active=True, role=Role.READER):
         self.id = id
         self.active = active
         self.role = role

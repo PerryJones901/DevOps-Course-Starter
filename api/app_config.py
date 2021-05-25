@@ -1,6 +1,6 @@
 import os
 
-class MongoConfig:
+class AppConfig:
     def __init__(self):
         self._MONGO_USERNAME = os.environ.get('MONGO_USERNAME')
         self._MONGO_PASSWORD = os.environ.get('MONGO_PASSWORD')

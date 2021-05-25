@@ -8,7 +8,7 @@ from oauthlib.oauth2 import WebApplicationClient
 
 from api.auth import authorisation_disabled, get_user, requires_role
 from api.auth_config import AuthConfig
-from api.mongo_config import MongoConfig
+from api.app_config import AppConfig
 from api.mongo_helper import MongoHelper
 import api.session_items as session
 import api.sorter as sorter
@@ -18,7 +18,7 @@ from models.view_model import ViewModel
 
 def create_app():
     app = Flask(__name__)
-    config = MongoConfig()
+    config = AppConfig()
     data_manager = MongoHelper(config)
     app.secret_key = config.SECRET_KEY
     app.data_manager = data_manager
@@ -38,8 +38,9 @@ def create_app():
         code_param = request.args.get("code")
         url, headers, body = client.prepare_token_request('https://github.com/login/oauth/access_token', client_id=auth_config.AUTH_CLIENT_ID, client_secret=auth_config.AUTH_CLIENT_SECRET, code=code_param)
         token_response = requests.post(url, body, headers=headers)
-        access_token = client.parse_request_body_response(token_response.text)['access_token']
-        github_user_profile = requests.get("https://api.github.com/user", headers={"Authorization": f"Bearer {access_token}"}).json()
+        client.parse_request_body_response(token_response.text)
+        user_uri, headers, body = client.add_token("https://api.github.com/user")
+        github_user_profile= requests.get(user_uri, headers=headers).json()
         login_user(get_user(github_user_profile['id']))
         return redirect(url_for('index'))
     
