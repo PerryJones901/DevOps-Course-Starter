@@ -53,8 +53,8 @@ RUN curl -sSL https://dl.google.com/linux/direct/google-chrome-stable_current_am
  apt-get install ./chrome.deb -y &&\
  rm ./chrome.deb
 # Install Chromium WebDriver
-RUN echo "Installing chromium webdriver version 88.0.4324.96" &&\
- curl -sSL https://chromedriver.storage.googleapis.com/88.0.4324.96/chromedriver_linux64.zip -o chromedriver_linux64.zip &&\
+RUN echo "Installing chromium webdriver version 90.0.4430.24" &&\
+ curl -sSL https://chromedriver.storage.googleapis.com/90.0.4430.24/chromedriver_linux64.zip -o chromedriver_linux64.zip &&\
  apt-get install unzip -y &&\
  unzip ./chromedriver_linux64.zip
 ENTRYPOINT [ "poetry", "run", "pytest" ]
