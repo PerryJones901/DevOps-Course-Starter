@@ -16,8 +16,8 @@ data "azurerm_resource_group" "main" {
 }
 
 resource "azurerm_app_service_plan" "main" {
-  name = "terraformed-asp"
-  location = data.azurerm_resource_group.main.location
+  name = "${var.prefix}-terraformed-asp"
+  location = var.location
   resource_group_name = data.azurerm_resource_group.main.name
   kind = "Linux"
   reserved = true
@@ -28,8 +28,8 @@ resource "azurerm_app_service_plan" "main" {
 }
 
 resource "azurerm_cosmosdb_account" "main" {
-  name                = "ppp-cosmosdb-account-perjon"
-  location            = data.azurerm_resource_group.main.location
+  name                = "${var.prefix}-ppp-perjon-cosmosdb-account"
+  location            = var.location
   resource_group_name = data.azurerm_resource_group.main.name
   offer_type          = "Standard"
   kind                = "MongoDB"
@@ -55,8 +55,8 @@ resource "azurerm_cosmosdb_account" "main" {
 }
 
 resource "azurerm_app_service" "main" {
-  name = "perfect-productivity-platform"
-  location = data.azurerm_resource_group.main.location
+  name = "${var.prefix}-perfect-productivity-platform"
+  location = var.location
   resource_group_name = data.azurerm_resource_group.main.name
   app_service_plan_id = azurerm_app_service_plan.main.id
   site_config {
@@ -70,12 +70,12 @@ resource "azurerm_app_service" "main" {
 }
 
 resource "azurerm_cosmosdb_mongo_database" "main" {
-  name                = "ppp-cosmos-mongo-db"
+  name                = "${var.prefix}-ppp-cosmos-mongo-db"
   resource_group_name = azurerm_cosmosdb_account.main.resource_group_name
   account_name        = azurerm_cosmosdb_account.main.name
 
-  lifecycle {
-    prevent_destroy = true
-  }
+  # lifecycle {
+  #   prevent_destroy = true
+  # }
 }
 
