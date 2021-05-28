@@ -1,13 +1,14 @@
 terraform {
-  required_providers {
-    azurerm = {
-      source = "hashicorp/azurerm"
-      version = ">= 2.49"
-    }
+  backend "azurerm" {
+    resource_group_name   = "SoftwirePilot_PerryJones_ProjectExercise"
+    storage_account_name  = "tstate7408"
+    container_name        = "tstate"
+    key                   = "terraform.tfstate"
   }
 }
 
 provider "azurerm" {
+  version = "~>2.0"
   features {}
 }
 

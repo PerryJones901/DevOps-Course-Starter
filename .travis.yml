@@ -5,13 +5,21 @@ env:
   global:
   - secure: "Aw9GHVg08eJ58N7EVxwiihvDklyFk+zpTzPHh4sxgi3v3Mc37AXKZF4QnRJ4lZT178tCIqmAl85t1b5vWSJ/5PQn2lhoOHqFoMuwmCcT3ODb6AWFM41joARxPTEVqrerF+K6rjFqE4XQXWQlLvuECTpDUmnf6yRFCy2UNIiFIt9J5XMctCHvhcFW/duzwAEh1VyPLTxD9WOa63YpDLJVsrr48j6EeoPWZsojgcaH8p5nW9M6SEQ22j2SvPzrF1rSMRUGBozPPlHy5HF7Jxw/UOYcdPVS5iIVqp33GJibedHzK/27fB1DHxQjvxNWSa91rc+/Xj9GBM1ZMIwaf7VYWzqE/wKoGwVU1uoAVjHfHC7poT4U23Wr6iOFIKNeb70OTE2+p8+xfZ0LFOCK6VqrgMSqOi9Ic4SVN4BX8ZCqqcrI5NvL/KF+TH3knW6z3ba6gv1v6PqBkwOM6G77ek9RDib73GmCHolmnZB7ZjayfnBRo+FsG+egCh6tgzlwN/QLmMrRE9C/MhXAKdibF7IC28SctnZGW0k8BlysVPZhZ7RBGT7KjgDZgZHw9y4T0gVrTFAGFYJxf5FO4c0MYPcZxb+VWgVEfex1Yz+9PCDTN6OUNUP+y5zxzbXnkoJfTb0NcFNDJAy5lX6H+7ZaGtG7kZGAQnoBIudPtf8ia6CWNWk="
   - secure: "M4aULg3Vbu6kQbjMc4GXH6h4Ji3mYFPqdrzG1amAIpiktY0LFhqC3hTL8QWNXeIh0rCsOmNIf50VpBQ8S+v2078twfFDCNZnU1wkfQ7ENGiyZU8vLhynXLPWSpgxVYr2T9y82c/KiyNad6JQo+ZBYxtCLUSO9k6hFsN837gv5ejNjP7h9C2rPC4rfhkAihun1kALDW+8y9/NGTqrCHtkhDIByCnpNVYkyNkTmKJYOZ2Oe7A/8+yStSUz0vcu+BObXRTk/lB8WdnB/RbYFcCDDrM/NPuHcse5knwVh4tBII0Ahw5tx1vfUT2ayBdBgxRkuLeqvY83G3lFyCCPoPNitkp6fFm4SlxHyIe0MHDf1gwPbNi95vKYBjy56l6K1Zi+TMXrBSKbq8f3JyrYME4s6TgY2EQI/eVu+npiOp1414s5mXPMaWu/niajCy4CViYM8IT8BUjSIbZYYIUSYWRHrlsGljE3cX7nKHqZ4ldiYPc/zr5Jh7Lkr7/ic4joSPRKupmcYYlhfuLRSBA2kunBnKqHyLVc5GFLrv4Eh1rcz8l+UXosY46no9+qvsUpLdQFid9dAPd2HIy4KHAzxD58nLtpIwqTCMx1jdP5ecZwbjmCN2W0tmQ4LIszHgU+sIQ18CXP470mLWKJgPnE/ngQ93yMYLpHm39iraFhQjAcC10="
-  - FLASK_APP="app"
-  - FLASK_ENV="development"
-  - MONGO_CLUSTER_NAME="cluster0.vwqib.mongodb.net"
-  - MONGO_DB_NAME="ppp-board-test"
-  - LOGIN_DISABLED=True
+  - secure: "Io7hkq9RpsQ5PoWR1rLE4Gtl3r8MAv3pCBDliwEUS4aTqp6GYGoDxBZWtkhaUMgB+rFw6TIhQ7fo2hApg/ysPDoMjJo1HPIfu3lNEDJ4ZqhCM/elwDk/BnMHrUE84osMBaIsPQMnySERtmNyATVw8yM8WNBQy52uP+VrtzsBmuZiP6xASasGZsIgYrnAUTFt9TA6NtRIJ2wZxq8o+16r5BGkze+UqkGHUpH9fSabj+WsSWz+RVmsNQdAG8pVWA1tysK6qfCjr3FZY7q/uUpvGeWnWYlIrz5/kU5o7e5SvoNfXv4a3PZTnr2Irg0ZVmgXIjMY1Yl+JdMLgipGJ2MsO12OX1dPGkspLcZg4AC9cOABP8aoytZJIigldeq0NNk8jg/xC9N3o6vedgbUsCkwvfAMOtkHPmuJHdcdLt+5ivnM2TY/Ej0qw4bRcRb4snd/9EhL7c4gl/qKGHYXU4poQV43hvJ91NCDAwcV06VyDk2z30qg2Rtg+Lnozt1mmLappPq5G1BZ4/EdSxLRDwxkpyRS7RkUb66gf3qCpfFammSXmqNXYwY8LsM0rUNfzFZTT6J2zMrYXk+tZMrBYS4FhbzroOGLw+zUUqUrKMyjrh0PFPOKkv3qoopCG8/qGqCSFusYh8C+XHpv1OQr+cJfeyBWRMqjs3oVrdVgNWBQgc0="
+  - secure: "fMOMH5tmpV15e+gLm6jUppXQhVAgWdGlYnmuF0wIPNHpMQUS6eEz2u+Owak9eGTWVLtp08tgBKs8UB3zsvlhkONymyxseTw4RBazL6UNy8MmMO6Ljh6kN9ndhQBAtax/9s4lw+2gyngbxVFI/frQ8idzRIi9SHyYXg96Wz2s0Yk32oEXcIygfSgzTFPv2ykjp5XRtFsF0PwzIfUtq8gE2WenFNPeb/AfAJCytxnKAJKWN1W5o5C+2txX7loQif7AlbjcMINLkQvcWyaDftpDSbsg/siJ0oL/maofXKryvM3Fog8J0LnGPpQwtmTtk2i8oyNS8AvMrt7ENgvTtLYXmqehHICbeyAXgbUXkI8tZEAVtTma5mWhMGSmGtc8nWO9/LF9M2fynT56kvEJWOn0dAPlfytu+3uYpZBrhljepgj/qQYpldG2a5KxLxZt9T8+2e8WVpO7NIv3AVIQhSRrt7eYj4zPq0t/XJwsLs2/asBM6vAIb5+gdsffGMPyy85tXnNt888U38EzpYpONzUAeIYJdWBlLrlamTilMvp02tVCnQAR+b4aRAI7UdoAQJFMG4cXgt6cCO0unytPxivd1tYcnYkhp7+RcVIDUfCg9jCucsB9NeiJoovk4DDro0cSEhxmqms7sRjnsWMdBBNbZ6QYw1Tjvt8P3JNi7kXp/K0="
+  - ARM_CLIENT_ID="1e32e3a4-6861-4944-be9a-1fc9cb0b0f48"
+  - ARM_TENANT_ID="7d6f97d6-d755-4c10-b763-409cc4b6638f"
+  - ARM_SUBSCRIPTION_ID="d33b95c7-af3c-4247-9661-aa96d47fccc0"
   - DOCKER_USERNAME=perryjones
   - DOCKER_REPO=ppp
+  - FLASK_APP="app"
+  - FLASK_ENV="development"
+  - GITHUB_AUTH_CLIENT_ID="847e8fb0fe7c65204314"
+  - LOGIN_DISABLED=True
+  - MONGO_CLUSTER_NAME="cluster0.vwqib.mongodb.net"
+  - MONGO_DB_NAME="ppp-board-test"
+  - TF_ENV_PREFIX="prod"
+  - TF_VERSION=0.14.7
 
 script:
 - docker build --target test --tag my-test-image .
@@ -24,6 +32,21 @@ script:
   -e MONGO_DB_NAME
   -e LOGIN_DISABLED
   my-test-image tests_e2e
+
+install:
+- wget https://releases.hashicorp.com/terraform/"$TF_VERSION"/terraform_"$TF_VERSION"_linux_amd64.zip
+- unzip terraform_"$TF_VERSION"_linux_amd64.zip
+- sudo mv terraform /usr/local/bin/
+- rm terraform_"$TF_VERSION"_linux_amd64.zip
+- terraform init
+
+before-deploy:
+- terraform apply 
+  -var "auth_client_id=${GITHUB_AUTH_CLIENT_ID}"
+  -var "auth_client_secret=${GITHUB_AUTH_CLIENT_SECRET}"
+  -var "mongo_db_name=${MONGO_DB_NAME}"
+  -var "prefix=${TF_ENV_PREFIX}"
+  -auto-approve
 
 deploy:
   skip_cleanup: true

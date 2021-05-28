@@ -17,4 +17,5 @@ docker push ${TARGET_IMAGE_VERSIONED}
 
 # POST to Deploy Webhook
 
-curl -dH -X POST "${DEPLOY_WEBHOOK_URL}"
+WEBHOOK_URL=$(terraform output cd_webhook)
+curl -dH -X POST "${WEBHOOK_URL}"
