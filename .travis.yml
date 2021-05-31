@@ -17,7 +17,6 @@ env:
   - FLASK_ENV="development"
   - GITHUB_AUTH_CLIENT_ID="847e8fb0fe7c65204314"
   - LOGIN_DISABLED=True
-  - MONGO_CLUSTER_NAME="cluster0.vwqib.mongodb.net"
   - MONGO_DB_NAME="ppp-board-test"
   - TF_ENV_PREFIX="prod"
   - TF_VERSION=0.14.7

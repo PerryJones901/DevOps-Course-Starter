@@ -44,8 +44,8 @@ COPY tests tests
 COPY tests_e2e tests_e2e
 COPY pytest.ini pytest.ini
 
-# Install Chrome
-RUN curl -sSL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o chrome.deb &&\
+# Install Chrome (version 91.0.4472.77-1)
+RUN curl -sSL https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_91.0.4472.77-1_amd64.deb -o chrome.deb &&\
  rm /var/lib/apt/lists/* -vf &&\
  apt-get clean &&\
  apt-get update &&\
@@ -53,8 +53,8 @@ RUN curl -sSL https://dl.google.com/linux/direct/google-chrome-stable_current_am
  apt-get install ./chrome.deb -y &&\
  rm ./chrome.deb
 # Install Chromium WebDriver
-RUN echo "Installing chromium webdriver version 90.0.4430.24" &&\
- curl -sSL https://chromedriver.storage.googleapis.com/90.0.4430.24/chromedriver_linux64.zip -o chromedriver_linux64.zip &&\
+RUN echo "Installing chromium webdriver version 91.0.4472.19" &&\
+ curl -sSL https://chromedriver.storage.googleapis.com/91.0.4472.19/chromedriver_linux64.zip -o chromedriver_linux64.zip &&\
  apt-get install unzip -y &&\
  unzip ./chromedriver_linux64.zip
 ENTRYPOINT [ "poetry", "run", "pytest" ]
