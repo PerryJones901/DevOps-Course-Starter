@@ -11,7 +11,7 @@ from models.card_list import CardList
 class MongoHelper(ITaskDataManager):
     def __init__(self, app_config: AppConfig):
         self.config = app_config
-        self.client = pymongo.MongoClient(self._get_connection_string(app_config))
+        self.client = pymongo.MongoClient(app_config.MONGO_CONNECTION_STRING)
         self.db = self.client[app_config.MONGO_DB_NAME]
         self.board_metadata = self.db['board-metadata']
         self.cards = self.db['cards']
