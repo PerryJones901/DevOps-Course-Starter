@@ -81,4 +81,4 @@ To make sure pytest can detect additional test files, make sure:
 
 ## CI/CD Pipeline
 
-This repository uses Travis to build docker images and run tests on both PR branches and master. Any master builds that succeed will automatically deploy to Heroku (link to the site [here](https://perfectproductivityplatform.herokuapp.com/))
+This repository uses Travis to build docker images and run tests on both PR branches and master. Any master builds that succeed will automatically deploy to Azure (link to the site [here](https://prod-perfect-productivity-platform.azurewebsites.net))
