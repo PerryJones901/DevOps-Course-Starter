@@ -65,10 +65,13 @@ resource "azurerm_app_service" "main" {
     linux_fx_version = "DOCKER|perryjones/ppp:latest"
   }
   app_settings = {
+    "AUTH_CLIENT_ID"              = var.auth_client_id
+    "AUTH_CLIENT_SECRET"          = var.auth_client_secret
     "DOCKER_REGISTRY_SERVER_URL"  = "https://index.docker.io"
     "FLASK_APP"                   = "app"
     "FLASK_ENV"                   = "production"
     "MONGO_CONNECTION_STRING"     = "mongodb://${azurerm_cosmosdb_account.main.name}:${azurerm_cosmosdb_account.main.primary_key}@${azurerm_cosmosdb_account.main.name}.mongo.cosmos.azure.com:10255/DefaultDatabase?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000"
+    "SECRET_KEY"                  = var.secret_key
   }
 }
 

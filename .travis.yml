@@ -46,6 +46,7 @@ before-deploy:
   -var "auth_client_secret=${GITHUB_AUTH_CLIENT_SECRET}"
   -var "mongo_db_name=${MONGO_DB_NAME}"
   -var "prefix=${TF_ENV_PREFIX}"
+  -var "secret_key=${SECRET_KEY}"
   -auto-approve
 
 deploy:

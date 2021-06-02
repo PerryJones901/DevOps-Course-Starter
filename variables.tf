@@ -18,3 +18,7 @@ variable "auth_client_secret" {
 variable "mongo_db_name" {
   description = "Name of MongoDB database the app will connect to"
 }
+
+variable "secret_key" {
+  description = "Secret Key which is given to Flask as SECRET_KEY"
+}
