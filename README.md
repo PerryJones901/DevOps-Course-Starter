@@ -82,3 +82,10 @@ To make sure pytest can detect additional test files, make sure:
 ## CI/CD Pipeline
 
 This repository uses Travis to build docker images and run tests on both PR branches and master. Any master builds that succeed will automatically deploy to Azure (link to the site [here](https://prod-perfect-productivity-platform.azurewebsites.net))
+
+## Infrastructure (Terraform)
+
+This repository uses Terraform to manage its infrastructure. Any changes in terraform files will be applied to Azure resources automatically when you merge branches into `master`.
+
+If you need to handle changes locally, you can download the [Terraform CLI](https://www.terraform.io/downloads.html).
+Basic commands can be learnt [here](https://www.terraform.io/docs/cli/commands/index.html).

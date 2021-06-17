@@ -71,6 +71,7 @@ resource "azurerm_app_service" "main" {
     "FLASK_APP"                   = "app"
     "FLASK_ENV"                   = "production"
     "MONGO_CONNECTION_STRING"     = "mongodb://${azurerm_cosmosdb_account.main.name}:${azurerm_cosmosdb_account.main.primary_key}@${azurerm_cosmosdb_account.main.name}.mongo.cosmos.azure.com:10255/DefaultDatabase?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000"
+    "MONGO_DB_NAME"               = var.mongo_db_name
     "SECRET_KEY"                  = var.secret_key
   }
 }
