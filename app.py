@@ -1,5 +1,4 @@
 from datetime import datetime
-from pprint import pprint
 import requests
 
 from flask import Flask, redirect, render_template, request, url_for
@@ -15,13 +14,12 @@ from api.mongo_helper import MongoHelper
 import api.session_items as session
 import api.sorter as sorter
 from models.role import Role
-from models.user import User
 from models.view_model import ViewModel
 
 def create_app():
     app = Flask(__name__)
     config = AppConfig()
-    data_manager = MongoHelper(config)
+    data_manager = MongoHelper(config, app.logger)
     app.secret_key = config.SECRET_KEY
     app.data_manager = data_manager
     app.config.from_object(config)
@@ -96,10 +94,8 @@ def create_app():
         title = request.form.get('title')
         list_name = request.form.get('card_list')
         due = request.form.get('due')
-        app.logger.info(f"Creating new card. Title: %s; List: %s; Due: %s;", title, list_name, due)
         card_list = data_manager.get_list(list_name)
-        card_id = data_manager.add_card(title, card_list.id, due)
-        app.logger.info(f"Card added with ID %s", card_id)
+        data_manager.add_card(title, card_list.id, due)
         return redirect(url_for('index'))
 
     @app.route('/card/<card_id>', methods=['POST'])
@@ -107,7 +103,6 @@ def create_app():
     @requires_role(Role.WRITER)
     def move_card_to_list(card_id):
         list_id = request.form.get('card_list')
-        app.logger.info(f"Moving Card %s to List %s", card_id, list_id)
         data_manager.move_card_to_list(card_id, list_id)
         return redirect(url_for('index'))
 
@@ -115,7 +110,6 @@ def create_app():
     @login_required
     @requires_role(Role.WRITER)
     def delete_item(card_id):
-        app.logger.info(f"Deleting card with Card ID %s", card_id)
         data_manager.delete_card(card_id)
         return redirect(url_for('index'))
 
