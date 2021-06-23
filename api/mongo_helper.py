@@ -26,11 +26,12 @@ class MongoHelper(ITaskDataManager):
         mongo_card = self.cards.find({'_id': ObjectId(id)})
         return Card.mongo_dict_to_card(mongo_card)
 
-    def add_card(self, title, list_id, due):
+    def add_card(self, title, list_id, due) -> str:
         id_short = self._increment_id_short_counter()
         due_date = self._get_due_or_default(due)
         latest_modified = datetime.now()
-        self.cards.insert_one(self._mongo_card_dict(id_short, title, list_id, due_date, latest_modified))
+        result = self.cards.insert_one(self._mongo_card_dict(id_short, title, list_id, due_date, latest_modified))
+        return str(result.inserted_id)
 
     def delete_card(self, id):
         self.cards.delete_one({'_id': ObjectId(id)})
