@@ -1,3 +1,4 @@
+from logging import Logger
 import os
 import random
 import string
@@ -32,7 +33,7 @@ def test_app():
     os.environ['LOGIN_DISABLED'] = "True"
     
     config = AppConfig()
-    data_manager = MongoHelper(config)
+    data_manager = MongoHelper(config, Logger("test"))
     test_db_name = "selenium_test_db"
     data_manager.add_test_db(test_db_name)
     data_manager.client[test_db_name]['lists'].delete_many({})
