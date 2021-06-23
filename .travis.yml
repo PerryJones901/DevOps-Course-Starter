@@ -8,6 +8,7 @@ env:
   - secure: "Io7hkq9RpsQ5PoWR1rLE4Gtl3r8MAv3pCBDliwEUS4aTqp6GYGoDxBZWtkhaUMgB+rFw6TIhQ7fo2hApg/ysPDoMjJo1HPIfu3lNEDJ4ZqhCM/elwDk/BnMHrUE84osMBaIsPQMnySERtmNyATVw8yM8WNBQy52uP+VrtzsBmuZiP6xASasGZsIgYrnAUTFt9TA6NtRIJ2wZxq8o+16r5BGkze+UqkGHUpH9fSabj+WsSWz+RVmsNQdAG8pVWA1tysK6qfCjr3FZY7q/uUpvGeWnWYlIrz5/kU5o7e5SvoNfXv4a3PZTnr2Irg0ZVmgXIjMY1Yl+JdMLgipGJ2MsO12OX1dPGkspLcZg4AC9cOABP8aoytZJIigldeq0NNk8jg/xC9N3o6vedgbUsCkwvfAMOtkHPmuJHdcdLt+5ivnM2TY/Ej0qw4bRcRb4snd/9EhL7c4gl/qKGHYXU4poQV43hvJ91NCDAwcV06VyDk2z30qg2Rtg+Lnozt1mmLappPq5G1BZ4/EdSxLRDwxkpyRS7RkUb66gf3qCpfFammSXmqNXYwY8LsM0rUNfzFZTT6J2zMrYXk+tZMrBYS4FhbzroOGLw+zUUqUrKMyjrh0PFPOKkv3qoopCG8/qGqCSFusYh8C+XHpv1OQr+cJfeyBWRMqjs3oVrdVgNWBQgc0="
   - secure: "fMOMH5tmpV15e+gLm6jUppXQhVAgWdGlYnmuF0wIPNHpMQUS6eEz2u+Owak9eGTWVLtp08tgBKs8UB3zsvlhkONymyxseTw4RBazL6UNy8MmMO6Ljh6kN9ndhQBAtax/9s4lw+2gyngbxVFI/frQ8idzRIi9SHyYXg96Wz2s0Yk32oEXcIygfSgzTFPv2ykjp5XRtFsF0PwzIfUtq8gE2WenFNPeb/AfAJCytxnKAJKWN1W5o5C+2txX7loQif7AlbjcMINLkQvcWyaDftpDSbsg/siJ0oL/maofXKryvM3Fog8J0LnGPpQwtmTtk2i8oyNS8AvMrt7ENgvTtLYXmqehHICbeyAXgbUXkI8tZEAVtTma5mWhMGSmGtc8nWO9/LF9M2fynT56kvEJWOn0dAPlfytu+3uYpZBrhljepgj/qQYpldG2a5KxLxZt9T8+2e8WVpO7NIv3AVIQhSRrt7eYj4zPq0t/XJwsLs2/asBM6vAIb5+gdsffGMPyy85tXnNt888U38EzpYpONzUAeIYJdWBlLrlamTilMvp02tVCnQAR+b4aRAI7UdoAQJFMG4cXgt6cCO0unytPxivd1tYcnYkhp7+RcVIDUfCg9jCucsB9NeiJoovk4DDro0cSEhxmqms7sRjnsWMdBBNbZ6QYw1Tjvt8P3JNi7kXp/K0="
   - secure: "V0oCr4Brwl0BaGpgTqEwZR+c+BsY+5WkxRs8BZGdJHATgaiJHxSxtjMm10lfY1iA+jJsjA4116e9KweyWQbNDr1yv0BLbIkqDIeymMhp53/eqM9341s1okn73pBU8IbviL7ZlZWqGcEFmvqvcBhkuvslyJ+anZwRaYReWiK52dMivXB/bgJ+WsnRUfQV4hyiIrM1Qy/h/rP02vhoizjjkSHKxIMkBvK7x6CBwI9hu/BQIDhxWAUt89WIa9cjby1EgVy34eFZsieXISXQpgTUx4FYQbBpRdgfxAQvpkQOqDtVziMLh48wvz0o/mVb13tj5QSx586eHmKDn3a/kmdlLmihz7mmlIg53EdicbSMdO8B1ypZsUWrl5lyLPLLv3HrnVXG2tSTDF6wuHSNQrf1PZDUhL6zvT2kI8n3f14/7bSY3DwTB6nGNg71PkwH2gqB5kIeb9HCqi/bmp5etON/rSDLZ4JLi83dL/oPWsbe8A1NcfSm5UZ6b6F8t8s9/9ZuXLZpRBcdgUA+jWpmba/Twwg288wBfXQdefSilzPvhWnKIJbsM8eveZA2l4L5+hb0rTXpCNr78N8WP3fu9IjeLnJzbvfHwJwkY5yn0fUFRovXIiUOdpq/HMopdc2GfSF+Pnaibbl+uINAiysHcNFBjYViJ6T/Z8nrpGuYnvpS4bs="
+  - secure: "gwaX7cZbNGCa0m9VVDhHYaO3T/67kwDxYbVByrgClymDREiV6JoBb1f8/Yu7bvuaqO/aW90t3TIsSeHz3ZF9g37NLEYxP+RPCrLzsG13i5XlC5aMlZiuE1Gq9aAcu3UaCNlXv2Ujr8KHedSW5qyIxS6TwVsMrthuqvESv5iv1qyRdmejm7wTDF360TEWLE8LvHwH5Q0WtJSGz01P8TNm+PX8x15I2yB+eiLaG3PH3woikCLNR8Qu0C8WndEnr/JehRyEhrk50u64SAchVAtCaVwcTINV7YWLI3f4fA49WE9IhG/0XM4gcDsl6sRpGJSlv4b0kaAWw1Crn6Ug9j9BQvdS4M+VX6GAhF7VcSgcXSeM+6j5wKssEqAiekH0DE8OJvVLIWKybxrBbsxJ+/wFy3wCZ6Q8JwCLjEXkI73Eu1+I+OLlcnmFQnmiLhH35Difjyfcic8htGi9JRERw3oo47L+CN0tLEhX3Ujw04plpb8bBdSEdvk5152aANG4gYevwEDWjtCRvnNkmRGYM1/G8Cl5f8HZnKzCxSIAh6IaQceWN0I851wBC1B8OE44Snh/W3v3/g5BjBfnCB0+lfiiwrKj1eip24dYk4BrB6P3G3CprEPiY/V5qvxP2yeuKvI7Uhlz4N+v6bbbThDl4yzijx/Z3oXvzKnGL4txnYGzzpI="
   - ARM_CLIENT_ID="1e32e3a4-6861-4944-be9a-1fc9cb0b0f48"
   - ARM_TENANT_ID="7d6f97d6-d755-4c10-b763-409cc4b6638f"
   - ARM_SUBSCRIPTION_ID="d33b95c7-af3c-4247-9661-aa96d47fccc0"
@@ -20,6 +21,7 @@ env:
   - MONGO_DB_NAME="ppp-board-test"
   - TF_ENV_PREFIX="prod"
   - TF_VERSION=0.14.7
+  - LOG_LEVEL="ERROR"
 
 script:
 - docker build --target test --tag my-test-image .
@@ -30,6 +32,7 @@ script:
   -e SECRET_KEY
   -e MONGO_CONNECTION_STRING
   -e MONGO_DB_NAME
+  -e LOG_LEVEL
   -e LOGIN_DISABLED
   my-test-image tests_e2e
 
@@ -44,6 +47,8 @@ before-deploy:
 - terraform apply 
   -var "auth_client_id=${GITHUB_AUTH_CLIENT_ID}"
   -var "auth_client_secret=${GITHUB_AUTH_CLIENT_SECRET}"
+  -var "log_level=${LOG_LEVEL}"
+  -var "loggly_token=${LOGGLY_TOKEN}"
   -var "mongo_db_name=${MONGO_DB_NAME}"
   -var "prefix=${TF_ENV_PREFIX}"
   -var "secret_key=${SECRET_KEY}"
@@ -54,5 +59,5 @@ deploy:
   provider: script
   script: bash .travis_docker.sh
   on:
-    branch: exercise-12
+    branch: master
     condition: ${TRAVIS_PULL_REQUEST} == "false"

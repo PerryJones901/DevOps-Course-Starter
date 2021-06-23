@@ -70,6 +70,8 @@ resource "azurerm_app_service" "main" {
     "DOCKER_REGISTRY_SERVER_URL"  = "https://index.docker.io"
     "FLASK_APP"                   = "app"
     "FLASK_ENV"                   = "production"
+    "LOG_LEVEL"                   = var.log_level
+    "LOGGLY_TOKEN"                = var.loggly_token
     "MONGO_CONNECTION_STRING"     = "mongodb://${azurerm_cosmosdb_account.main.name}:${azurerm_cosmosdb_account.main.primary_key}@${azurerm_cosmosdb_account.main.name}.mongo.cosmos.azure.com:10255/DefaultDatabase?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000"
     "MONGO_DB_NAME"               = var.mongo_db_name
     "SECRET_KEY"                  = var.secret_key
